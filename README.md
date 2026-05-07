@@ -4,7 +4,7 @@ Dashboard público de acompanhamento do projeto de retificação automatizada de
 
 ## Acesso ao dashboard
 
-[**Ver dashboard ao vivo**](https://joaoapiovam.github.io/j3f-dashboard/)
+[**Ver dashboard ao vivo**](https://joaoapiovam.github.io/j3f_dashboard/)
 
 
 ## Sobre o projeto
