@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J3F SPED Analyzer — Progresso do Projeto de Retificação EFD ICMS/IPI</title>
+<meta name="description" content="Dashboard de acompanhamento da evolução do motor de retificação EFD ICMS/IPI no J3F SPED Analyzer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-escuro: #005263;
+    --teal: #00ACCA;
+    --verde-claro: #96C9D7;
+    --cobre: #9E947E;
+    --bege-claro: #EEE7D7;
+    --branco: #FFFFFF;
+    --texto-dark: #1A1A1A;
+    --texto-mid: #505459;
+    --cinza-borda: #E0E0E0;
+    --bg-page: #FAFAF8;
+    --bg-card: #FFFFFF;
+    --bg-secondary: #F5F4F0;
+    --status-done: #1D9E75;
+    --status-next: #00ACCA;
+    --status-blocked: #BA7517;
+    --status-planned: #B4B2A9;
+    --status-warning: #BA7517;
+    --status-danger: #C0392B;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-page: #0E1A1F;
+      --bg-card: #16252B;
+      --bg-secondary: #1F3239;
+      --texto-dark: #F0EDE3;
+      --texto-mid: #A8A8A0;
+      --cinza-borda: #2A3F47;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-page);
+    color: var(--texto-dark);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* HEADER ============================================== */
+  .header {
+    background: var(--verde-escuro);
+    color: var(--branco);
+    padding: var(--space-lg) var(--space-md);
+    margin-bottom: var(--space-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .header-eyebrow {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--verde-claro);
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  .header-subtitle {
+    font-size: 16px;
+    color: var(--verde-claro);
+    margin-bottom: var(--space-md);
+  }
+  .header-meta {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--verde-claro);
+  }
+  .header-meta strong {
+    color: var(--branco);
+    font-weight: 600;
+  }
+  .header-wave {
+    position: absolute;
+    right: -50px;
+    bottom: -30px;
+    width: 280px;
+    height: 100px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  /* SECTION HEADERS ===================================== */
+  .section {
+    margin-bottom: var(--space-xl);
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: var(--texto-mid);
+    margin-bottom: var(--space-md);
+  }
+
+  /* KPI CARDS =========================================== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-sm);
+  }
+  .kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--cinza-borda);
+    border-left: 3px solid var(--teal);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) 20px;
+  }
+  .kpi-label {
+    font-size: 13px;
+    color: var(--texto-mid);
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .kpi-context {
+    font-size: 13px;
+    color: var(--texto-mid);
+  }
+  .kpi-progress-track {
+    height: 4px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .kpi-progress-fill {
+    height: 100%;
+    background: var(--status-done);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .kpi-warning .kpi-value { color: var(--status-warning); }
+
+  /* TIMELINE ============================================ */
+  .timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--cinza-borda);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+  .timeline-legend {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    padding-bottom: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--cinza-borda);
+    font-size: 13px;
+    color: var(--texto-mid);
+  }
+  .timeline-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  .timeline-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 240px 1fr 60px;
+    gap: var(--space-sm);
+    align-items: center;
+    font-size: 14px;
+  }
+  .timeline-label {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .timeline-bar-track {
+    position: relative;
+    height: 22px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+  }
+  .timeline-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+    font-size: 11px;
+    font-weight: 500;
+    overflow: hidden;
+  }
+  .timeline-duration {
+    font-size: 12px;
+    color: var(--texto-mid);
+    text-align: right;
+  }
+
+  /* FAMILY CARDS ======================================== */
+  .family-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-sm);
+  }
+  .family-card {
+    background: var(--bg-card);
+    border: 1px solid var(--cinza-borda);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .family-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .family-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  .family-name {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .family-description {
+    font-size: 13px;
+    color: var(--texto-mid);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .family-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--cinza-borda);
+    font-size: 12px;
+    color: var(--texto-mid);
+  }
+  .badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .badge-done { background: rgba(29, 158, 117, 0.12); color: var(--status-done); }
+  .badge-next { background: rgba(0, 172, 202, 0.12); color: var(--verde-escuro); }
+  .badge-blocked { background: rgba(186, 117, 23, 0.12); color: var(--status-blocked); }
+  .badge-planned { background: var(--bg-secondary); color: var(--texto-mid); }
+
+  /* RISK CARDS ========================================== */
+  .risk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .risk-card {
+    background: var(--bg-card);
+    border: 1px solid var(--cinza-borda);
+    border-left: 3px solid var(--status-warning);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-sm) 20px;
+  }
+  .risk-card.severity-high {
+    border-left-color: var(--status-danger);
+  }
+  .risk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    gap: 12px;
+  }
+  .risk-title {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .risk-meta {
+    font-size: 12px;
+    color: var(--texto-mid);
+    white-space: nowrap;
+  }
+  .risk-description {
+    font-size: 14px;
+    color: var(--texto-mid);
+    line-height: 1.6;
+  }
+
+  /* DECISIONS / DETAILS ================================= */
+  .details-section {
+    background: var(--bg-card);
+    border: 1px solid var(--cinza-borda);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  details {
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  details:last-child {
+    border-bottom: none;
+  }
+  summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.15s ease;
+  }
+  summary:hover {
+    background: var(--bg-secondary);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    font-size: 18px;
+    color: var(--teal);
+    font-weight: 400;
+    transition: transform 0.2s ease;
+  }
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .details-body {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--texto-mid);
+    line-height: 1.7;
+  }
+  .details-body p {
+    margin-bottom: 8px;
+  }
+  .details-body strong {
+    color: var(--texto-dark);
+  }
+
+  /* DECISIONS GRID ====================================== */
+  .decisions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .decision-item {
+    background: var(--bg-secondary);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .decision-id {
+    font-weight: 600;
+    color: var(--verde-escuro);
+    margin-right: 6px;
+    font-size: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .decision-id { color: var(--teal); }
+  }
+
+  /* MILESTONES ========================================== */
+  .milestone-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .milestone-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .milestone-marker {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    color: var(--texto-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .milestone-marker.active {
+    background: var(--teal);
+    color: var(--branco);
+  }
+  .milestone-content {
+    flex: 1;
+    padding-top: 4px;
+  }
+  .milestone-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  .milestone-meta {
+    font-size: 13px;
+    color: var(--texto-mid);
+  }
+
+  /* TODOS =============================================== */
+  .todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+  }
+  .todo-id {
+    font-weight: 600;
+    font-family: ui-monospace, SF Mono, Monaco, monospace;
+    font-size: 12px;
+    color: var(--verde-escuro);
+    background: var(--bg-card);
+    padding: 2px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    min-width: 64px;
+    text-align: center;
+  }
+  @media (prefers-color-scheme: dark) {
+    .todo-id { color: var(--teal); background: var(--bg-page); }
+  }
+  .todo-text {
+    flex: 1;
+    color: var(--texto-mid);
+    line-height: 1.5;
+  }
+  .todo-when {
+    font-size: 11px;
+    color: var(--texto-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* FOOTER ============================================== */
+  .footer {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--cinza-borda);
+    text-align: center;
+    color: var(--texto-mid);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .footer code {
+    background: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+  }
+
+  /* RESPONSIVE ========================================== */
+  @media (max-width: 768px) {
+    .header { padding: var(--space-md) var(--space-sm); }
+    .header h1 { font-size: 24px; }
+    .container { padding: var(--space-md) var(--space-sm); }
+    .timeline-row { grid-template-columns: 140px 1fr 50px; gap: 8px; font-size: 12px; }
+    .kpi-value { font-size: 26px; }
+    .section-title { font-size: 18px; }
+  }
+
+  /* PRINT =============================================== */
+  @media print {
+    .header { background: var(--verde-escuro) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: white; }
+    .family-card:hover { transform: none; box-shadow: none; }
+    details { break-inside: avoid; }
+    details[open] summary::after { content: ''; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header" role="banner">
+  <div class="header-content">
+    <div class="header-eyebrow">J3F Tax Intelligence · Acompanhamento de projeto</div>
+    <h1>Retificação EFD ICMS/IPI — J3F SPED Analyzer</h1>
+    <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
+    <div class="header-meta">
+      <span>Atualizado: <strong id="last-update">04/05/2026</strong></span>
+      <span>Sprint atual: <strong id="current-sprint">S1.0 (em preparo)</strong></span>
+      <span>Versão alvo: <strong>v3.13.0-rc1</strong></span>
+      <span>Branch: <strong>feature/retificacao-estado-da-arte</strong></span>
+    </div>
+  </div>
+  <svg class="header-wave" viewBox="0 0 280 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M0,60 Q70,20 140,50 T280,40 L280,100 L0,100 Z" fill="var(--teal)"/>
+  </svg>
+</header>
+
+<main class="container" role="main">
+
+<section class="section" aria-labelledby="kpis-title">
+  <h2 id="kpis-title" class="section-title">Visão executiva</h2>
+  <p class="section-subtitle">Indicadores consolidados do andamento do projeto</p>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Progresso geral</div>
+      <div class="kpi-value">31%</div>
+      <div class="kpi-context">4 de 13 sprints fechados</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 31%;"></div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Decisões tomadas</div>
+      <div class="kpi-value">30</div>
+      <div class="kpi-context">D-1 a D-30 + D-IND_SIT</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cobertura de testes</div>
+      <div class="kpi-value">82%</div>
+      <div class="kpi-context">2.385 testes automatizados</div>
+    </div>
+    <div class="kpi-card kpi-warning">
+      <div class="kpi-label">Riscos ativos</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-context">PVA, schemas CIAP, regra apuração</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="timeline-title">
+  <h2 id="timeline-title" class="section-title">Linha do tempo</h2>
+  <p class="section-subtitle">Sprints concluídos, em andamento e planejados</p>
+  <div class="timeline-card">
+    <div class="timeline-legend">
+      <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-done);"></span>Concluído</span>
+      <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-next);"></span>Em preparo</span>
+      <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-blocked);"></span>Bloqueado</span>
+      <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-planned);"></span>Planejado</span>
+    </div>
+    <div class="timeline-rows" id="timeline"></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="families-title">
+  <h2 id="families-title" class="section-title">Famílias de correção</h2>
+  <p class="section-subtitle">Estratégia de execução incremental por categoria de risco</p>
+  <div class="family-grid">
+
+    <div class="family-card">
+      <div class="family-header">
+        <div class="family-name">Família E — Estrutural</div>
+        <span class="badge badge-next">Próximo</span>
+      </div>
+      <p class="family-description">Marcação de retificadora, recálculo do Bloco 9, contadores X990 e propagação simulada de E110/C190.</p>
+      <div class="family-footer">
+        <span>Sprints S1.0 + S1.0b</span>
+        <span>4-5 dias</span>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <div class="family-header">
+        <div class="family-name">Família M-ICMS</div>
+        <span class="badge badge-planned">Planejado</span>
+      </div>
+      <p class="family-description">CST, CFOP, ICMS-ST e DIFAL com modo experimental, audit trail e dupla confirmação obrigatória.</p>
+      <div class="family-footer">
+        <span>Sprint S1.1</span>
+        <span>3-4 dias</span>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <div class="family-header">
+        <div class="family-name">Família CIAP</div>
+        <span class="badge badge-blocked">Bloqueado</span>
+      </div>
+      <p class="family-description">Crédito do ativo permanente, parcela 1/48 e fator mensal de saídas tributadas. Aguarda extensão de schemas G110/G125.</p>
+      <div class="family-footer">
+        <span>Sprint S1.2</span>
+        <span>4-5 dias</span>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <div class="family-header">
+        <div class="family-name">Família IPI</div>
+        <span class="badge badge-blocked">Bloqueado</span>
+      </div>
+      <p class="family-description">CST IPI, alíquota, base de cálculo e crédito de entrada. Aguarda extensão do schema do C170 e do registro E520.</p>
+      <div class="family-footer">
+        <span>Sprint S1.3</span>
+        <span>3-4 dias</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="risks-title">
+  <h2 id="risks-title" class="section-title">Riscos ativos</h2>
+  <p class="section-subtitle">Situações que podem impactar prazo ou escopo</p>
+  <div class="risk-list">
+
+    <div class="risk-card severity-high">
+      <div class="risk-header">
+        <div class="risk-title">Regra de apuração ICMS canônica não documentada</div>
+        <span class="risk-meta">P1+1 · Severidade alta</span>
+      </div>
+      <p class="risk-description">Sprint S1.1 (Família M-ICMS) só pode iniciar após regra fiscal real de apuração de E110 estar documentada com fundamentação normativa. Sem esse marco, cada correção fiscal recalcularia totalizadores de forma inconsistente.</p>
+    </div>
+
+    <div class="risk-card">
+      <div class="risk-header">
+        <div class="risk-title">Disponibilidade do PVA oficial</div>
+        <span class="risk-meta">D-20 · Severidade média</span>
+      </div>
+      <p class="risk-description">Sprint S1.0 só fecha após o PVA oficial validar pelo menos um arquivo retificado gerado pelo motor. Smoke test acontece no início do sprint para confirmar que Parallels e PVA estão acessíveis.</p>
+    </div>
+
+    <div class="risk-card">
+      <div class="risk-header">
+        <div class="risk-title">Schemas G110 e G125 ausentes do parser oficial</div>
+        <span class="risk-meta">D-17 / P0+1 · Severidade média</span>
+      </div>
+      <p class="risk-description">Bloqueia Sprint S1.2 (Família CIAP). Extensão do REGISTRO_SCHEMAS conforme Guia Prático EFD ICMS/IPI precisa ser executada antes do início do sprint.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="milestones-title">
+  <h2 id="milestones-title" class="section-title">Próximos marcos</h2>
+  <p class="section-subtitle">Sequência de entregas dos próximos 30 dias úteis</p>
+  <div class="milestone-list">
+
+    <div class="milestone-item">
+      <div class="milestone-marker active">1</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.0 — motor estrutural mínimo</div>
+        <div class="milestone-meta">2-3 dias · Marcação de retificadora, Bloco 9, contadores · Validação no PVA real</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">2</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.0b — propagação E110 e C190</div>
+        <div class="milestone-meta">2 dias · Mecanismo de recálculo após alteração simulada</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">3</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Tag oficial v3.13.0</div>
+        <div class="milestone-meta">Após S1.0 + S1.0b validados no PVA · Primeiro release público do motor ICMS/IPI</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">4</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.1 — Família M-ICMS</div>
+        <div class="milestone-meta">3-4 dias · Correções fiscais com modo experimental e gabarito manual</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">5</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprints S1.2 + S1.3 — CIAP e IPI</div>
+        <div class="milestone-meta">7-9 dias · Após resolução dos TODOs de extensão de schemas (P0+1, P0+2, P0+3)</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="todos-title">
+  <h2 id="todos-title" class="section-title">Tarefas pendentes e débito técnico</h2>
+  <p class="section-subtitle">Pré-requisitos formais dos próximos sprints</p>
+  <div class="todo-list">
+
+    <div class="todo-item">
+      <div class="todo-id">P1+0</div>
+      <div class="todo-text">Extrair função de detecção de tipo de obrigação do dashboard para módulo compartilhado. Concluído em 04/05/2026 com refinamento P1+0.1 (consenso multi-sinal).</div>
+      <div class="todo-when">Concluído</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P1+1</div>
+      <div class="todo-text">Definir regra canônica de apuração ICMS para Sprint S1.1. Documentar fundamentação normativa antes de qualquer correção de mérito.</div>
+      <div class="todo-when">Antes do S1.1</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P0+1</div>
+      <div class="todo-text">Estender REGISTRO_SCHEMAS do parser oficial com registros G110 e G125 (CIAP) conforme Guia Prático EFD ICMS/IPI.</div>
+      <div class="todo-when">Antes do S1.2</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P0+2</div>
+      <div class="todo-text">Estender schema do registro C170 com campos IPI: CST_IPI, ALIQ_IPI, VL_IPI, VL_BC_IPI, COD_ENQ.</div>
+      <div class="todo-when">Antes do S1.3</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P0+3</div>
+      <div class="todo-text">Confirmar registro E520 (apuração IPI) no Guia Prático e adicionar ao REGISTRO_SCHEMAS se necessário.</div>
+      <div class="todo-when">Antes do S1.3</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">T-1</div>
+      <div class="todo-text">Mover dataclasses ResultadoRetificacao e ModificacaoRegistro de motor.py para models.py compartilhado. Cleanup do ResultadoRetificacao órfão de app/core/models.py.</div>
+      <div class="todo-when">Antes do S2</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="decisions-title">
+  <h2 id="decisions-title" class="section-title">Decisões arquiteturais</h2>
+  <p class="section-subtitle">Trinta decisões tomadas e registradas no plano canônico (drill-down técnico)</p>
+  <div class="details-section">
+
+    <details>
+      <summary>Decisões de escopo e arquitetura geral</summary>
+      <div class="details-body">
+        <div class="decisions-list">
+          <div class="decision-item"><span class="decision-id">D-3</span>Detecção de tipo via estrutura, não COD_VER rígido</div>
+          <div class="decision-item"><span class="decision-id">D-4</span>Bloco 9 ICMS/IPI em arquivo separado do existente</div>
+          <div class="decision-item"><span class="decision-id">D-9</span>Motor universal em arquivo dedicado</div>
+          <div class="decision-item"><span class="decision-id">D-12</span>API e dashboard intocados no S1, exceto adapter P1+0</div>
+          <div class="decision-item"><span class="decision-id">D-18</span>Sprint S1 dividido em 4 famílias por risco</div>
+          <div class="decision-item"><span class="decision-id">D-19</span>Tipos secundários reservados para S1.4</div>
+          <div class="decision-item"><span class="decision-id">D-30</span>Tipo de retorno único ResultadoRetificacao</div>
+          <div class="decision-item"><span class="decision-id">D-31</span>Linguagem natural reservada para S2 (a ser registrada)</div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Decisões de tipo de dado e schemas</summary>
+      <div class="details-body">
+        <div class="decisions-list">
+          <div class="decision-item"><span class="decision-id">D-1a</span>Parser oficial: dict[str, list[tuple[str, str]]]</div>
+          <div class="decision-item"><span class="decision-id">D-1b</span>Motor: dict[str, dict[str, int]] derivado do parser</div>
+          <div class="decision-item"><span class="decision-id">D-2</span>Registry de funções: dict[str, Callable]</div>
+          <div class="decision-item"><span class="decision-id">D-15</span>Schemas compatíveis com REGISTRO_SCHEMAS oficial</div>
+          <div class="decision-item"><span class="decision-id">D-17</span>G110/G125 ausentes são GAP a sanar antes do S1.2</div>
+          <div class="decision-item"><span class="decision-id">D-23</span>Extensão do parser em P0+2 (IPI) e P0+3 (E520)</div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Decisões de preservação byte-a-byte (D-24 e correlatas)</summary>
+      <div class="details-body">
+        <div class="decisions-list">
+          <div class="decision-item"><span class="decision-id">D-6</span>Leitura em bytes brutos, decode localizado</div>
+          <div class="decision-item"><span class="decision-id">D-24</span>Arquivo retificado bit-idêntico exceto modificações</div>
+          <div class="decision-item"><span class="decision-id">D-25</span>Linha entra no diff só se conteúdo gerado difere</div>
+          <div class="decision-item"><span class="decision-id">D-26</span>Bloco 9 em ordem determinística documentada</div>
+          <div class="decision-item"><span class="decision-id">D-27</span>C190 falha explícita se campo não derivável</div>
+          <div class="decision-item"><span class="decision-id">D-29</span>Princípio de falha explícita</div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Decisões de processo, validação e versionamento</summary>
+      <div class="details-body">
+        <div class="decisions-list">
+          <div class="decision-item"><span class="decision-id">D-7</span>Cobertura mínima 80% em módulos novos</div>
+          <div class="decision-item"><span class="decision-id">D-10</span>Tratamento de IND_SIT 3 com confirmação explícita</div>
+          <div class="decision-item"><span class="decision-id">D-11</span>@norma obrigatório por correção</div>
+          <div class="decision-item"><span class="decision-id">D-14</span>detectar_encoding extraído para módulo compartilhado</div>
+          <div class="decision-item"><span class="decision-id">D-16</span>Adapter de nomenclatura entre plano e codebase</div>
+          <div class="decision-item"><span class="decision-id">D-20</span>S1.0 fechado quando PVA real validar arquivo</div>
+          <div class="decision-item"><span class="decision-id">D-21</span>M-ICMS exige confirmação dupla e modo experimental</div>
+          <div class="decision-item"><span class="decision-id">D-22</span>Decisão sobre CST de saída antes do S1.1</div>
+          <div class="decision-item"><span class="decision-id">D-28</span>SemVer sem sufixo, rc1 e rc2 internos</div>
+          <div class="decision-item"><span class="decision-id">D-IND_SIT</span>EFD ICMS/IPI altera COD_FIN, não IND_SIT</div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="completed-title">
+  <h2 id="completed-title" class="section-title">Sprints concluídos</h2>
+  <p class="section-subtitle">Histórico de entregas com hashes de commits e principais resultados</p>
+  <div class="details-section">
+
+    <details>
+      <summary>P0 — Pavimentação · 5 relatórios + extração de detectar_encoding</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (GO COM RESSALVAS)</p>
+        <p><strong>Commits:</strong> fc9bf85 · 734c8cf · 7ca75bb</p>
+        <p><strong>Entregas:</strong> Mapeamento de tipos C1-C20, pré-condições normativas, cross-check de schemas, cobertura de utilitários ICMS, resultado consolidado. Identificou que 20 tipos do plano provisório precisavam ser reduzidos a famílias menores (D-18) e que vários schemas precisariam ser estendidos.</p>
+        <p><strong>Lição-chave:</strong> P0 não é "rodar checks", é descoberta. Plano pós-P0 pode ser substancialmente diferente do plano pré-P0.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Pcanon — Plano canônico de retificação</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído</p>
+        <p><strong>Commit:</strong> dccd48b</p>
+        <p><strong>Entrega:</strong> Documento de 731 linhas estabelecendo arquitetura, decisões D-1 a D-30, sequência S1.0 a S7, gotchas conhecidas e lições do P0. Vira fonte canônica que sprints seguintes referenciam.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>P1+0 — Detector de tipo de obrigação SPED</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído</p>
+        <p><strong>Commits:</strong> f0049b4 · 85319fd · 34dd1f0 · f3d7321</p>
+        <p><strong>Entrega:</strong> Módulo app/parsers/_detector_obrigacao.py com duas APIs (bytes e Path), adapter no dashboard preservando vocabulário legado, suite de testes com 30 casos, cobertura 93%. Cenário identificado: A (função pura existente, extração mecânica).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>P1+0.1 — Correção de bug crítico no detector (consenso multi-sinal)</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído</p>
+        <p><strong>Commit:</strong> 6f8e5e9</p>
+        <p><strong>Entrega:</strong> Refatoração do detector para usar voto por consenso em vez de early-return em sinal único. Bug detectado: fixture base do S1.0 era classificada como Contribuições por causa de DT_INI no campo 5 (sinal 2 disparava antes do sinal 1 de IND_PERFIL).</p>
+        <p><strong>Lições registradas:</strong> L-DET-01 (early-return em sinal único é falso-positivo esperando para acontecer); L-DET-02 (fixtures podem mascarar bugs); L-DET-03 (preservar comportamento durante extração não significa preservar bugs no canônico).</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <p>J3F Tax Intelligence · Tax Engineering · <strong>Precisão técnica. Segurança jurídica.</strong></p>
+  <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch <code>feature/retificacao-estado-da-arte</code></p>
+  <p style="margin-top: 8px;">Responsável técnico: Fábio Garcia da Silva — OAB/SP 232.079</p>
+</footer>
+
+</main>
+
+<script>
+// =============================================================
+// DADOS DO TIMELINE — atualizar aqui quando avançar de sprint
+// =============================================================
+const sprints = [
+  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',    start: 0,  span: 1, dias: '0,5d' },
+  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',    start: 1,  span: 1, dias: '0,2d' },
+  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',    start: 2,  span: 1, dias: '0,5d' },
+  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',    start: 3,  span: 1, dias: '0,3d' },
+  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'next',    start: 4,  span: 3, dias: '2-3d' },
+  { id: 'S1.0b',    nome: 'S1.0b — Propagação simulada',          status: 'planned', start: 7,  span: 2, dias: '2d'   },
+  { id: 'S1.0+1',   nome: 'S1.0+1 — Manutenção do canônico',      status: 'planned', start: 9,  span: 1, dias: '0,2d' },
+  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'planned', start: 10, span: 4, dias: '3-4d' },
+  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked', start: 14, span: 5, dias: '4-5d' },
+  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked', start: 19, span: 4, dias: '3-4d' },
+  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned', start: 23, span: 3, dias: '3d'   },
+  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned', start: 26, span: 4, dias: '3-4d' },
+  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned', start: 30, span: 6, dias: '6d'   }
+];
+
+const colorMap = {
+  done:    'var(--status-done)',
+  next:    'var(--status-next)',
+  blocked: 'var(--status-blocked)',
+  planned: 'var(--status-planned)'
+};
+
+const TOTAL_UNITS = 36;
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  if (!container) return;
+
+  const html = sprints.map(s => {
+    const leftPct = Math.round((s.start / TOTAL_UNITS) * 100);
+    const widthPct = Math.max(2, Math.round((s.span / TOTAL_UNITS) * 100));
+    const cor = colorMap[s.status];
+    return `
+      <div class="timeline-row" role="listitem">
+        <div class="timeline-label" title="${s.nome}">${s.nome}</div>
+        <div class="timeline-bar-track" role="presentation">
+          <div class="timeline-bar" style="left: ${leftPct}%; width: ${widthPct}%; background: ${cor};">${s.id}</div>
+        </div>
+        <div class="timeline-duration">${s.dias}</div>
+      </div>`;
+  }).join('');
+
+  container.innerHTML = html;
+  container.setAttribute('role', 'list');
+  container.setAttribute('aria-label', 'Linha do tempo dos sprints do projeto');
+}
+
+// Atualiza data
+function updateLastUpdate() {
+  const el = document.getElementById('last-update');
+  if (!el) return;
+  // Mantém data fixa do release. Para data dinâmica, descomentar:
+  // const hoje = new Date();
+  // el.textContent = hoje.toLocaleDateString('pt-BR');
+}
+
+// Init
+renderTimeline();
+updateLastUpdate();
+</script>
+
+</body>
+</html>
