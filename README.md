@@ -4,8 +4,7 @@ Dashboard público de acompanhamento do projeto de retificação automatizada de
 
 ## Acesso ao dashboard
 
-[**Ver dashboard ao vivo**](https://joaoapiovam.github.io/j3f_dashboard/)
-
+[**Ver dashboard ao vivo →**](https://joaoapiovam.github.io/j3f_dashboard/)
 
 ## Sobre o projeto
 
@@ -20,27 +19,78 @@ Este dashboard acompanha a evolução incremental do **motor de retificação pa
 
 ## Estrutura
 
-- `index.html` — dashboard autocontido (HTML + CSS + JavaScript vanilla)
-- Sem dependências externas além de Google Fonts (família Manrope)
+```
+.
+├── index.html              # Dashboard autocontido (HTML + CSS + JS vanilla)
+├── README.md               # Este arquivo
+├── LICENSE                 # MIT
+├── .nojekyll               # Garante que o GitHub Pages sirva todos os arquivos
+└── assets/
+    ├── hero.png            # Hero institucional (Structural Resonance, 1280×400)
+    ├── logo-j3f.png        # Logo oficial J3F Tax Intelligence
+    ├── favicon.png         # Favicon 32×32 derivado do símbolo
+    ├── favicon-64.png      # Favicon 64×64
+    ├── favicon-180.png     # Apple touch icon 180×180
+    └── _generators/
+        └── build_hero.py   # Script Python que gera o hero.png
+```
+
+Sem dependências externas além de Google Fonts (família Manrope).
 
 ## Como atualizar
 
-O conteúdo do dashboard é editado diretamente no `index.html`, em duas seções principais:
+Quando o sprint avançar, mexa apenas nestas seções do `index.html`:
 
-1. **Array `sprints` no JavaScript** (final do arquivo): atualiza status, posição e duração de cada sprint na linha do tempo
-2. **Cards e seções HTML**: atualiza KPIs, riscos ativos, próximos marcos, decisões e histórico
+| Sprint avançou | O que atualizar |
+|---|---|
+| Data da última atualização | `<strong id="last-update">DD/MM/AAAA</strong>` no header |
+| Sprint atual mudou | `<strong id="current-sprint">…</strong>` + status do `sprints[]` no JS no final do arquivo |
+| Branch ativa mudou | `<strong>branch</strong>` no header e no footer |
+| KPI de progresso | `<div class="kpi-value">XX%</div>` na seção "Visão executiva" |
+| Riscos surgiram/foram resolvidos | Cards na seção "Riscos ativos" |
+| Sprint concluído | Adicionar `<details>` em "Sprints concluídos" + atualizar status no `sprints[]` |
+| Lição aprendida | Adicionar `<details>` em "Lições recentes capturadas" |
+| Marcos próximos mudaram | Atualizar `<div class="milestone-item">` em "Próximos marcos" |
 
-Após editar, basta fazer commit no branch `main` — o GitHub Pages republica automaticamente em 1-2 minutos.
+Após editar:
+
+```bash
+cd j3f-dashboard
+git add index.html
+git commit -m "docs(dashboard): atualiza progresso sprint <X>"
+git push
+```
+
+GitHub Pages republica automaticamente em 1-2 minutos. URL do dashboard:
+**https://joaoapiovam.github.io/j3f_dashboard/**
+
+## Como regenerar o hero
+
+O hero (`assets/hero.png`) é gerado proceduralmente por um script Python. Para regenerar (ex: ajustar paleta, densidade ou amplitude da senóide):
+
+```bash
+python assets/_generators/build_hero.py
+```
+
+Requer Python 3.x + Pillow (`pip install pillow`). A filosofia de design por trás do hero — **Structural Resonance** — está documentada no repositório principal do J3F SPED Analyzer em `docs/superpowers/specs/2026-05-07-hero-design-philosophy.md`.
 
 ## Identidade visual
 
-O dashboard segue o **Brand Kit J3F 2026**:
+O dashboard segue o **Brand Kit J3F 2026** (designer: Lucas Barreira / LB7, v2026.1):
 
-- Verde escuro institucional `#005263`
-- Teal de acento `#00ACCA`
-- Verde claro `#96C9D7`
-- Tipografia Manrope (300 a 700)
-- Dark mode automático conforme preferência do sistema
+| Token | Hex | Papel |
+|---|---|---|
+| Verde escuro | `#005263` | Fundo institucional, header |
+| Teal | `#00ACCA` | Acento primário, CTAs, links |
+| Verde claro | `#96C9D7` | Variação suave, badges |
+| Cobre | `#9E947E` | Acento neutro quente, grid |
+| Bege claro | `#EEE7D7` | Fundo de documentos |
+
+- **Tipografia única:** Manrope (300 a 800)
+- **Espaçamento base:** 8px
+- **Dark mode** automático conforme preferência do sistema (`prefers-color-scheme`)
+- **Animações** respeitam `prefers-reduced-motion`
+- **Print** otimizado (sem hover, sem animação, hero invisível)
 
 ## Responsável técnico
 

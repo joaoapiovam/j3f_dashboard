@@ -3,11 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>J3F SPED Analyzer — Progresso do Projeto de Retificação EFD ICMS/IPI</title>
-<meta name="description" content="Dashboard de acompanhamento da evolução do motor de retificação EFD ICMS/IPI no J3F SPED Analyzer.">
+<title>Retificação EFD ICMS/IPI — J3F SPED Analyzer</title>
+<meta name="description" content="Dashboard público de progresso do motor de retificação automatizada EFD ICMS/IPI no J3F SPED Analyzer — Tax Intelligence.">
+<meta name="theme-color" content="#005263">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Retificação EFD ICMS/IPI — J3F SPED Analyzer">
+<meta property="og:description" content="Dashboard público de progresso do motor de retificação automatizada — J3F Tax Intelligence.">
+<meta property="og:url" content="https://joaoapiovam.github.io/j3f_dashboard/">
+<meta property="og:image" content="https://joaoapiovam.github.io/j3f_dashboard/assets/hero.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="400">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="J3F Tax Intelligence">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retificação EFD ICMS/IPI — J3F SPED Analyzer">
+<meta name="twitter:description" content="Dashboard público de progresso do motor de retificação automatizada.">
+<meta name="twitter:image" content="https://joaoapiovam.github.io/j3f_dashboard/assets/hero.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --verde-escuro: #005263;
@@ -24,6 +44,7 @@
     --bg-secondary: #F5F4F0;
     --status-done: #1D9E75;
     --status-next: #00ACCA;
+    --status-progress: #007E94;
     --status-blocked: #BA7517;
     --status-planned: #B4B2A9;
     --status-warning: #BA7517;
@@ -73,56 +94,102 @@
   .header {
     background: var(--verde-escuro);
     color: var(--branco);
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
     margin-bottom: var(--space-lg);
     position: relative;
     overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(95deg, var(--verde-escuro) 0%, rgba(0, 82, 99, 0.78) 45%, rgba(0, 82, 99, 0.20) 100%);
+    pointer-events: none;
+    z-index: 0;
   }
   .header-content {
     max-width: 1280px;
     margin: 0 auto;
+    width: 100%;
     position: relative;
     z-index: 1;
+  }
+  .header-logo {
+    height: 44px;
+    width: auto;
+    margin-bottom: var(--space-md);
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
   }
   .header-eyebrow {
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--verde-claro);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .header h1 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 4px;
-    line-height: 1.15;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+    line-height: 1.1;
+    max-width: 820px;
   }
   .header-subtitle {
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 400;
     color: var(--verde-claro);
     margin-bottom: var(--space-md);
+    max-width: 720px;
+    line-height: 1.45;
   }
   .header-meta {
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--verde-claro);
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(150, 201, 215, 0.22);
+  }
+  .header-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
   .header-meta strong {
     color: var(--branco);
     font-weight: 600;
   }
-  .header-wave {
-    position: absolute;
-    right: -50px;
-    bottom: -30px;
-    width: 280px;
-    height: 100px;
-    opacity: 0.18;
-    pointer-events: none;
+  .header-meta .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(0, 172, 202, 0.6);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 172, 202, 0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 172, 202, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .header-meta .pulse-dot { animation: none; }
   }
 
   /* SECTION HEADERS ===================================== */
@@ -312,6 +379,32 @@
   }
   .badge-done { background: rgba(29, 158, 117, 0.12); color: var(--status-done); }
   .badge-next { background: rgba(0, 172, 202, 0.12); color: var(--verde-escuro); }
+  .badge-progress {
+    background: rgba(0, 126, 148, 0.14);
+    color: var(--status-progress);
+    position: relative;
+    padding-left: 18px;
+  }
+  .badge-progress::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    border-radius: 50%;
+    background: var(--status-progress);
+    box-shadow: 0 0 0 0 rgba(0, 126, 148, 0.5);
+    animation: pulse-badge 2s ease-in-out infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 126, 148, 0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(0, 126, 148, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .badge-progress::before { animation: none; }
+  }
   .badge-blocked { background: rgba(186, 117, 23, 0.12); color: var(--status-blocked); }
   .badge-planned { background: var(--bg-secondary); color: var(--texto-mid); }
 
@@ -535,8 +628,14 @@
 
   /* RESPONSIVE ========================================== */
   @media (max-width: 768px) {
-    .header { padding: var(--space-md) var(--space-sm); }
-    .header h1 { font-size: 24px; }
+    .header {
+      padding: var(--space-md) var(--space-sm);
+      min-height: auto;
+    }
+    .header-logo { height: 36px; margin-bottom: var(--space-sm); }
+    .header h1 { font-size: 26px; }
+    .header-subtitle { font-size: 15px; }
+    .header-meta { font-size: 12.5px; gap: var(--space-sm); }
     .container { padding: var(--space-md) var(--space-sm); }
     .timeline-row { grid-template-columns: 140px 1fr 50px; gap: 8px; font-size: 12px; }
     .kpi-value { font-size: 26px; }
@@ -545,7 +644,17 @@
 
   /* PRINT =============================================== */
   @media print {
-    .header { background: var(--verde-escuro) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .header {
+      background: var(--verde-escuro) !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      min-height: auto;
+      padding: var(--space-md);
+    }
+    .hero-bg { display: none; }
+    .header::after { display: none; }
+    .header-meta .pulse-dot,
+    .badge-progress::before { animation: none; }
     body { background: white; }
     .family-card:hover { transform: none; box-shadow: none; }
     details { break-inside: avoid; }
@@ -556,20 +665,19 @@
 <body>
 
 <header class="header" role="banner">
+  <img src="assets/hero.png" alt="" class="hero-bg" loading="eager" fetchpriority="high">
   <div class="header-content">
-    <div class="header-eyebrow">J3F Tax Intelligence · Acompanhamento de projeto</div>
-    <h1>Retificação EFD ICMS/IPI — J3F SPED Analyzer</h1>
-    <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
+    <img src="assets/logo-j3f.png" alt="J3F Tax Intelligence" class="header-logo">
+    <div class="header-eyebrow">Tax Engineering · Acompanhamento de projeto</div>
+    <h1>Retificação EFD ICMS/IPI</h1>
+    <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias — J3F SPED Analyzer</div>
     <div class="header-meta">
-      <span>Atualizado: <strong id="last-update">04/05/2026</strong></span>
-      <span>Sprint atual: <strong id="current-sprint">S1.0 (em preparo)</strong></span>
+      <span>Atualizado: <strong id="last-update">07/05/2026</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.0 (PRE-FECHAMENTO)</strong></span>
       <span>Versão alvo: <strong>v3.13.0-rc1</strong></span>
-      <span>Branch: <strong>feature/retificacao-estado-da-arte</strong></span>
+      <span>Branch: <strong>claude/strange-albattani-8d7f6a</strong></span>
     </div>
   </div>
-  <svg class="header-wave" viewBox="0 0 280 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M0,60 Q70,20 140,50 T280,40 L280,100 L0,100 Z" fill="var(--teal)"/>
-  </svg>
 </header>
 
 <main class="container" role="main">
@@ -580,26 +688,26 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">31%</div>
-      <div class="kpi-context">4 de 13 sprints fechados</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 31%;"></div>
+      <div class="kpi-value">37%</div>
+      <div class="kpi-context">4 fechados + S1.0 em PRE-FECHAMENTO (4,8 de 13)</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 37%;"></div>
       </div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Decisões tomadas</div>
+      <div class="kpi-label">Decisões arquiteturais</div>
       <div class="kpi-value">30</div>
-      <div class="kpi-context">D-1 a D-30 + D-IND_SIT</div>
+      <div class="kpi-context">D-1 a D-30 + D-IND_SIT (motor ICMS/IPI)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Cobertura de testes</div>
       <div class="kpi-value">82%</div>
-      <div class="kpi-context">2.385 testes automatizados</div>
+      <div class="kpi-context">~2.385 testes automatizados na suíte</div>
     </div>
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
       <div class="kpi-value">3</div>
-      <div class="kpi-context">PVA, schemas CIAP, regra apuração</div>
+      <div class="kpi-context">D-20 PVA, P1+1 apuração, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -610,6 +718,7 @@
   <div class="timeline-card">
     <div class="timeline-legend">
       <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-done);"></span>Concluído</span>
+      <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-progress);"></span>Em fechamento</span>
       <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-next);"></span>Em preparo</span>
       <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-blocked);"></span>Bloqueado</span>
       <span class="timeline-legend-item"><span class="legend-dot" style="background: var(--status-planned);"></span>Planejado</span>
@@ -626,9 +735,9 @@
     <div class="family-card">
       <div class="family-header">
         <div class="family-name">Família E — Estrutural</div>
-        <span class="badge badge-next">Próximo</span>
+        <span class="badge badge-progress">Em fechamento</span>
       </div>
-      <p class="family-description">Marcação de retificadora, recálculo do Bloco 9, contadores X990 e propagação simulada de E110/C190.</p>
+      <p class="family-description">Marcação de retificadora (COD_FIN), recálculo do Bloco 9 com auto-referência, contadores X990 e propagação simulada de E110/C190. Suite de testes byte-a-byte completa; aguarda Tentativa final no PVA real.</p>
       <div class="family-footer">
         <span>Sprints S1.0 + S1.0b</span>
         <span>4-5 dias</span>
@@ -689,10 +798,10 @@
 
     <div class="risk-card">
       <div class="risk-header">
-        <div class="risk-title">Disponibilidade do PVA oficial</div>
+        <div class="risk-title">Validação no PVA real ainda pendente (Tentativa 5)</div>
         <span class="risk-meta">D-20 · Severidade média</span>
       </div>
-      <p class="risk-description">Sprint S1.0 só fecha após o PVA oficial validar pelo menos um arquivo retificado gerado pelo motor. Smoke test acontece no início do sprint para confirmar que Parallels e PVA estão acessíveis.</p>
+      <p class="risk-description">Cinco tentativas até aqui — Tentativa 5 (06/05/2026, fixture conforme Guia v3.2.1, período 01/2023, COD_VER 017) teve <strong>estrutura aceita 2× pelo PVA</strong>, mas conteúdo (linhas C190/E110) ainda pendente. Hipótese confirmada (b9ebe30): fixtures sintéticas mínimas "nascem condenadas" — gate D-20 deve usar EFD real anonimizada. Resolvido via TODO T-3 (fixture PVA-conforme dedicada).</p>
     </div>
 
     <div class="risk-card">
@@ -714,8 +823,8 @@
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.0 — motor estrutural mínimo</div>
-        <div class="milestone-meta">2-3 dias · Marcação de retificadora, Bloco 9, contadores · Validação no PVA real</div>
+        <div class="milestone-title">Tentativa final no PVA real (gate D-20)</div>
+        <div class="milestone-meta">Em curso · Fixture PVA-conforme dedicada (TODO T-3) · Fecha S1.0 quando PVA aceitar conteúdo</div>
       </div>
     </div>
 
@@ -739,7 +848,7 @@
       <div class="milestone-marker">4</div>
       <div class="milestone-content">
         <div class="milestone-title">Sprint S1.1 — Família M-ICMS</div>
-        <div class="milestone-meta">3-4 dias · Correções fiscais com modo experimental e gabarito manual</div>
+        <div class="milestone-meta">3-4 dias · Correções fiscais com modo experimental e gabarito manual · Bloqueado por P1+1 (regra de apuração)</div>
       </div>
     </div>
 
@@ -758,6 +867,12 @@
   <h2 id="todos-title" class="section-title">Tarefas pendentes e débito técnico</h2>
   <p class="section-subtitle">Pré-requisitos formais dos próximos sprints</p>
   <div class="todo-list">
+
+    <div class="todo-item">
+      <div class="todo-id">T-3</div>
+      <div class="todo-text">Substituir fixture sintética por EFD real anonimizada como gate D-20. Hipótese confirmada (b9ebe30): fixtures mínimas "nascem condenadas" no PVA — somente arquivo originado por SEFAZ tem ordem de campos e contadores aceitáveis pelo validador oficial.</div>
+      <div class="todo-when">Em curso</div>
+    </div>
 
     <div class="todo-item">
       <div class="todo-id">P1+0</div>
@@ -793,6 +908,12 @@
       <div class="todo-id">T-1</div>
       <div class="todo-text">Mover dataclasses ResultadoRetificacao e ModificacaoRegistro de motor.py para models.py compartilhado. Cleanup do ResultadoRetificacao órfão de app/core/models.py.</div>
       <div class="todo-when">Antes do S2</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">L-31</div>
+      <div class="todo-text">Hardening em app/parsers/efd_icms_ipi.py: tentar ISO-8859-1 PRIMEIRO em parsers de EFD da ReceitaNetBX (Convênio ICMS 143/2006). Auto-detect probabilístico (chardet) gera replacement chars silenciosos em arquivos grandes.</div>
+      <div class="todo-when">Backlog</div>
     </div>
 
   </div>
@@ -911,13 +1032,70 @@
       </div>
     </details>
 
+    <details>
+      <summary>S1.0 — Motor estrutural mínimo (família E) · em PRE-FECHAMENTO</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> PRE-FECHAMENTO (gate D-20 pendente)</p>
+        <p><strong>Commits principais:</strong> a34f054 (recálculo Bloco 9 com auto-referência) · 67d2608 (E1, E2, E3) · e474b56 (motor com defesa em profundidade) · 6841023 (motor universal — roteador) · 0ea68e3 (E2 num_linha real) · 36d4c7e (suite final byte-a-byte) · 2c731e9 (PRE-FECHAMENTO)</p>
+        <p><strong>Entregas:</strong> motor de retificação EFD ICMS/IPI completo para a família estrutural — marcação de retificadora via COD_FIN (D-IND_SIT), recálculo determinístico do Bloco 9 com auto-referência (D-26), correções E1/E2/E3 estruturais, motor universal com roteamento Contribuições↔ICMS/IPI, suite de testes byte-a-byte completa.</p>
+        <p><strong>Tentativas no PVA real (gate D-20):</strong> 5 tentativas até aqui. Tentativa 3 (Bloco B vazio, 6c8ce28); Tentativa 4 (CNPJ/IE válidos + COD_VER 015 + 0005/0100/H005, f141cae); Tentativa 5 (Guia v3.2.1 oficial, período 01/2023, COD_VER 017, 4d0301a) — <strong>estrutura aceita 2×</strong>, conteúdo ainda pendente.</p>
+        <p><strong>Hipótese confirmada (b9ebe30):</strong> fixtures sintéticas mínimas "nascem condenadas" no PVA. Resolução proposta no TODO T-3: usar EFD real anonimizada como gate.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<section class="section" aria-labelledby="lessons-title">
+  <h2 id="lessons-title" class="section-title">Lições recentes capturadas</h2>
+  <p class="section-subtitle">Aprendizados convertidos em regra preventiva nas últimas duas semanas</p>
+  <div class="details-section">
+
+    <details>
+      <summary>L-31 — ISO-8859-1 é canônico em EFDs ICMS/IPI da ReceitaNetBX</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> parsing / qualidade · <strong>Data:</strong> 06/05/2026 · <strong>Commit:</strong> 78ef416</p>
+        <p><strong>Erro:</strong> Auto-detect <code>chardet</code> retornou None com confidence 0,95 em EFDs grandes — pipeline gravou replacement chars (<code>�</code>) no Parquet/XLSX. Quebra de qualidade em entregas a clientes (SIB, HueHoco): <code>?LEO DE CORTE</code>, <code>M?QUINA</code>, <code>AQUISI??O</code>.</p>
+        <p><strong>Causa raiz:</strong> EFDs ReceitaNetBX são padronizadas em <strong>ISO-8859-1 (Latin-1)</strong> pelo Convênio ICMS 143/2006 + tooling SEFAZ. Confiar em auto-detect probabilístico em arquivo padronizado é over-engineering com regressão silenciosa.</p>
+        <p><strong>Regra preventiva:</strong> em parsers de EFD, tentar <code>iso-8859-1</code> PRIMEIRO; só cair em outras codificações se houver erro real. Validar pós-decodificação a contagem de <code>�</code> — se &gt;0, decode está errado mesmo sem exceção.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>L-32 — chunking glob → rglob para indexar subdirectórios da base normativa</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> RAG / normas · <strong>Data:</strong> 06/05/2026 · <strong>Commit:</strong> c96eb36</p>
+        <p><strong>Causa raiz:</strong> <code>base_dir.glob("*.md")</code> não visita subdirectórios. 14 normas catalogadas em <code>estadual/sp/portaria_sre/</code>, <code>decretos/</code>, <code>leis/</code> existiam há meses sem ser indexadas pelo BM25.</p>
+        <p><strong>Regra preventiva:</strong> sempre usar <code>rglob</code> em walkers de bases normativas hierárquicas. Adicionar smoke test que conta arquivos por subdiretório.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>L-33 — CST 70 não pertence à lista _CST_NUNCA_GERADORA</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> e-CredAc · <strong>Data:</strong> 06/05/2026 · <strong>Commit:</strong> 3edc238</p>
+        <p><strong>Causa raiz:</strong> CST 70 (tributado com redução de BC e cobrança por ST) tem manutenção de crédito específica por norma — não bloqueia geração de crédito acumulado de forma absoluta. Inclusão indevida em <code>_CST_NUNCA_GERADORA</code> bloqueava classificação Inciso II.</p>
+        <p><strong>Regra preventiva:</strong> "nunca geradora" deve listar APENAS CSTs que <em>explicitamente</em> excluem manutenção de crédito (CST 50 — suspensão; CST 90 — outros sem manutenção). Demais CSTs são tratados condicionalmente no bloco do Inciso II.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>L-34 — Valores absolutos fiscais não devem aparecer em mensagens de exceção (LGPD)</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> segurança / LGPD · <strong>Data:</strong> 06/05/2026 · <strong>Commit:</strong> 3edc238</p>
+        <p><strong>Causa raiz:</strong> <code>reconciliador_blocos.py</code> incluía valores absolutos de saldo credor nos campos <code>detalhes</code> e <code>fontes</code> de divergência. Logs com saldo credor expostos violam diretriz LGPD do projeto (regra 8 do CLAUDE.md).</p>
+        <p><strong>Regra preventiva:</strong> em campos de exceção, log ou detalhe, usar valores de divergência (R$ 0,02), faixas (&gt;1mi, 100k–1mi) ou referências sem valor absoluto ("[ver EFD]"). Nunca expor <code>saldo_credor_fim</code>, <code>parcela_ca</code> ou ICMS total em mensagens.</p>
+      </div>
+    </details>
+
   </div>
 </section>
 
 <footer class="footer">
   <p>J3F Tax Intelligence · Tax Engineering · <strong>Precisão técnica. Segurança jurídica.</strong></p>
-  <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch <code>feature/retificacao-estado-da-arte</code></p>
+  <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch <code>claude/strange-albattani-8d7f6a</code></p>
   <p style="margin-top: 8px;">Responsável técnico: Fábio Garcia da Silva — OAB/SP 232.079</p>
+  <p style="margin-top: 8px;">Repositório do dashboard: <a href="https://github.com/joaoapiovam/j3f_dashboard" style="color: var(--teal); text-decoration: none;">github.com/joaoapiovam/j3f_dashboard</a></p>
 </footer>
 
 </main>
@@ -927,26 +1105,27 @@
 // DADOS DO TIMELINE — atualizar aqui quando avançar de sprint
 // =============================================================
 const sprints = [
-  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',    start: 0,  span: 1, dias: '0,5d' },
-  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',    start: 1,  span: 1, dias: '0,2d' },
-  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',    start: 2,  span: 1, dias: '0,5d' },
-  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',    start: 3,  span: 1, dias: '0,3d' },
-  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'next',    start: 4,  span: 3, dias: '2-3d' },
-  { id: 'S1.0b',    nome: 'S1.0b — Propagação simulada',          status: 'planned', start: 7,  span: 2, dias: '2d'   },
-  { id: 'S1.0+1',   nome: 'S1.0+1 — Manutenção do canônico',      status: 'planned', start: 9,  span: 1, dias: '0,2d' },
-  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'planned', start: 10, span: 4, dias: '3-4d' },
-  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked', start: 14, span: 5, dias: '4-5d' },
-  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked', start: 19, span: 4, dias: '3-4d' },
-  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned', start: 23, span: 3, dias: '3d'   },
-  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned', start: 26, span: 4, dias: '3-4d' },
-  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned', start: 30, span: 6, dias: '6d'   }
+  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',     start: 0,  span: 1, dias: '0,5d' },
+  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',     start: 1,  span: 1, dias: '0,2d' },
+  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',     start: 2,  span: 1, dias: '0,5d' },
+  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',     start: 3,  span: 1, dias: '0,3d' },
+  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'progress', start: 4,  span: 3, dias: '2-3d' },
+  { id: 'S1.0b',    nome: 'S1.0b — Propagação simulada',          status: 'next',     start: 7,  span: 2, dias: '2d'   },
+  { id: 'S1.0+1',   nome: 'S1.0+1 — Manutenção do canônico',      status: 'planned',  start: 9,  span: 1, dias: '0,2d' },
+  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'planned',  start: 10, span: 4, dias: '3-4d' },
+  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 14, span: 5, dias: '4-5d' },
+  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 19, span: 4, dias: '3-4d' },
+  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 23, span: 3, dias: '3d'   },
+  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 26, span: 4, dias: '3-4d' },
+  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 30, span: 6, dias: '6d'   }
 ];
 
 const colorMap = {
-  done:    'var(--status-done)',
-  next:    'var(--status-next)',
-  blocked: 'var(--status-blocked)',
-  planned: 'var(--status-planned)'
+  done:     'var(--status-done)',
+  progress: 'var(--status-progress)',
+  next:     'var(--status-next)',
+  blocked:  'var(--status-blocked)',
+  planned:  'var(--status-planned)'
 };
 
 const TOTAL_UNITS = 36;
