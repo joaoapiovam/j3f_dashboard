@@ -4,9 +4,8 @@ Dashboard público de acompanhamento do projeto de retificação automatizada de
 
 ## Acesso ao dashboard
 
-[**Ver dashboard ao vivo**](https://SEU-USUARIO.github.io/j3f-dashboard/)
+[**Ver dashboard ao vivo**](https://joaoapiovam.github.io/j3f-dashboard/)
 
-> Substituir `SEU-USUARIO` pelo nome real do usuário ou organização no GitHub.
 
 ## Sobre o projeto
 
