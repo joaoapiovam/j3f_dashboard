@@ -732,7 +732,7 @@
     <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
     <div class="header-meta">
       <span>Atualizado: <strong id="last-update">08/05/2026</strong></span>
-      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">P1+1 (em curso)</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.B em planejamento</strong></span>
       <span>Checkpoint atual: <strong>v3.13.0-rc2</strong></span>
       <span>Branch: <strong>codex/s1-0b-propagacao-estrutural</strong></span>
     </div>
@@ -747,16 +747,16 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">54%</div>
-      <div class="kpi-context">7 de 13 sprints concluídos (Família E completa)</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 54%;"></div>
+      <div class="kpi-value">60%</div>
+      <div class="kpi-context">Família E completa + P1+1 + S1.1.A read-only fechados</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 60%;"></div>
       </div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Decisões arquiteturais</div>
-      <div class="kpi-value">33</div>
-      <div class="kpi-context">D-1 a D-33 + D-IND_SIT (motor ICMS/IPI)</div>
+      <div class="kpi-value">34</div>
+      <div class="kpi-context">D-1 a D-34 + D-IND_SIT (motor ICMS/IPI)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gates PVA aprovados</div>
@@ -765,8 +765,8 @@
     </div>
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
-      <div class="kpi-value">2</div>
-      <div class="kpi-context">D-22 escopo CST saída, D-17 schemas CIAP</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-context">YAML × normas desalinhados, D-22 CST saída, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -806,12 +806,12 @@
     <div class="family-card">
       <div class="family-header">
         <div class="family-name">Família M-ICMS</div>
-        <span class="badge badge-next">Próximo</span>
+        <span class="badge badge-progress">Em curso</span>
       </div>
-      <p class="family-description">CST, CFOP, ICMS-ST e DIFAL com modo experimental, audit trail e dupla confirmação obrigatória. Pré-requisito P1+1 (regra canônica de apuração ICMS) em curso. Aguarda decisão D-22 sobre escopo de CST de saída antes de iniciar.</p>
+      <p class="family-description">S1.1.A ✓ análise CST entrada read-only experimental fechada (66 testes, ~700 LOC). S1.1.B (próximo) habilita aplicação experimental — bloqueado por desalinhamento entre identificadores <code>@norma:</code> do YAML e filenames em <code>docs/legislacao_md/</code>.</p>
       <div class="family-footer">
-        <span>Sprint S1.1 (após P1+1)</span>
-        <span>5-7 dias úteis</span>
+        <span>S1.1.A ✓ · S1.1.B planejado</span>
+        <span>5-7 dias úteis no total</span>
       </div>
     </div>
 
@@ -847,12 +847,20 @@
   <p class="section-subtitle">Situações que podem impactar prazo ou escopo</p>
   <div class="risk-list">
 
+    <div class="risk-card severity-high">
+      <div class="risk-header">
+        <div class="risk-title">Identificadores <code>@norma:</code> do YAML não batem com filenames</div>
+        <span class="risk-meta">Pré-requisito S1.1.B · Severidade alta</span>
+      </div>
+      <p class="risk-description">Validação E2E do S1.1.A revelou que IDs do YAML <code>matriz_cst.yaml</code> não casam por igualdade exata com arquivos em <code>docs/legislacao_md/</code> — exemplos: <code>Lei_Kandir_LC87_1996</code> vs <code>LC_87_1996_Kandir.md</code>; <code>Convenio_ICMS_142_2018</code> vs <code>Convenio_ICMS_142_2018_ST.md</code>; <code>Guia_Pratico_EFD_ICMS_IPI_v3</code> vs <code>Guia_EFD_ICMS_IPI_v3.2.1.md</code>. Consequência: toda recomendação sai com <code>bloqueada=True</code> e <code>normas=()</code>. Antes do S1.1.B é preciso alinhar os identificadores ou implementar alias map.</p>
+    </div>
+
     <div class="risk-card">
       <div class="risk-header">
         <div class="risk-title">Decisão sobre escopo de CST de saída pendente</div>
         <span class="risk-meta">D-22 · Severidade média</span>
       </div>
-      <p class="risk-description">Antes do Sprint S1.1 começar, é necessário decidir se a categoria C2 (CST ICMS) abrange CST de <strong>saída</strong>. Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase — afeta dimensionamento e duração do sprint.</p>
+      <p class="risk-description">Antes do Sprint S1.1.B avançar para CST de saída, é necessário decidir se a categoria C2 (CST ICMS) abrange saída. S1.1.A entregou apenas análise para CST de <strong>entrada</strong> — escopo recomendado pela documentação canônica P1+1. Se a decisão incluir saída, será necessária implementação de <code>classificar_cst_icms_saida()</code> ainda inexistente.</p>
     </div>
 
     <div class="risk-card">
@@ -874,32 +882,24 @@
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">P1+1 — Regra canônica de apuração ICMS</div>
-        <div class="milestone-meta">08 → 12/05/2026 · Em curso · Documenta fundamentação normativa (estornos, ajustes, transferências de saldo credor, DIFAL acumulado) e valida compatibilidade com mecanismo do S1.0b</div>
+        <div class="milestone-title">Alinhamento de identificadores <code>@norma:</code> ↔ filenames</div>
+        <div class="milestone-meta">Em planejamento · Pré-requisito do S1.1.B · Alinhar IDs do YAML matriz_cst com arquivos de <code>docs/legislacao_md/</code> ou implementar alias map</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">2</div>
       <div class="milestone-content">
-        <div class="milestone-title">🏷️ Checkpoint v3.13.0-rc2 (S1.0 + S1.0b)</div>
-        <div class="milestone-meta">Tag a criar nesta semana · Família E completa em PVA real · NÃO é release de produção (regra de isolamento do main vigente)</div>
+        <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
+        <div class="milestone-meta">Aguardando · Habilita ou bloqueia <code>classificar_cst_icms_saida()</code> em S1.1.B · Impacta dimensionamento</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">3</div>
       <div class="milestone-content">
-        <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
-        <div class="milestone-meta">Janela 09 → 11/05/2026 · Decisão sobre incluir classificação de CST de saída em S1.1 · Impacta dimensionamento do sprint</div>
-      </div>
-    </div>
-
-    <div class="milestone-item">
-      <div class="milestone-marker">4</div>
-      <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.1 — Família M-ICMS (mérito fiscal)</div>
-        <div class="milestone-meta">12 → 22/05/2026 · 5-7 dias úteis · Correções com modo experimental e dupla confirmação (D-21) · Encerra com gate PVA real</div>
+        <div class="milestone-title">Sprint S1.1.B — aplicação experimental M-ICMS</div>
+        <div class="milestone-meta">12 → 22/05/2026 · 4-6 dias úteis · Habilita modo experimental + dupla confirmação (D-21) sobre análise read-only do S1.1.A · Encerra com novo gate PVA → checkpoint <code>v3.13.0-rc3</code></div>
       </div>
     </div>
 
@@ -952,15 +952,21 @@
   <div class="todo-list">
 
     <div class="todo-item">
-      <div class="todo-id">P1+1</div>
-      <div class="todo-text">Documentar regra canônica de apuração ICMS em <code>tasks/REGRA_APURACAO_ICMS_S1_1.md</code>. Cobrir estornos, ajustes, transferências de saldo credor anterior e DIFAL acumulado. Validar compatibilidade com mecanismo do S1.0b (<code>_calcular_saldo_apurado</code> + propagação E116) antes de iniciar S1.1.</div>
-      <div class="todo-when">Em curso</div>
+      <div class="todo-id">YAML×MD</div>
+      <div class="todo-text">Alinhar identificadores <code>@norma:</code> em <code>config/matriz_cst.yaml</code> com filenames reais de <code>docs/legislacao_md/</code>, ou implementar alias map deterministico. Pré-requisito do S1.1.B — sem isso, todas as recomendações da matriz CST ficam bloqueadas (<code>bloqueada=True</code>, <code>normas=()</code>).</div>
+      <div class="todo-when">Antes do S1.1.B</div>
     </div>
 
     <div class="todo-item">
       <div class="todo-id">D-22</div>
-      <div class="todo-text">Decisão pendente: a categoria C2 (CST ICMS) abrange CST de saída? Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase.</div>
-      <div class="todo-when">Antes do S1.1</div>
+      <div class="todo-text">Decisão pendente: a categoria C2 (CST ICMS) abrange CST de saída? S1.1.A entregou só análise de entrada; se a decisão incluir saída, S1.1.B precisa implementar <code>classificar_cst_icms_saida()</code>.</div>
+      <div class="todo-when">Antes do S1.1.B</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P1+1</div>
+      <div class="todo-text">Regra canônica de apuração ICMS documentada em <code>tasks/REGRA_APURACAO_ICMS_S1_1.md</code>. Define fórmula canônica do E110 conforme Guia v3.2.1: <code>VL_ICMS_RECOLHER = VL_SLD_APURADO − VL_TOT_DED</code>; <code>DEB_ESP</code> entra na coerência posterior com E116. Concluído em 08/05/2026 (commit <code>dc17e69</code>).</div>
+      <div class="todo-when">Concluído</div>
     </div>
 
     <div class="todo-item">
@@ -1062,6 +1068,7 @@
           <div class="decision-item"><span class="decision-id">D-29</span>Princípio de falha explícita</div>
           <div class="decision-item"><span class="decision-id">D-32</span>ModificacaoRegistro.num_linha sempre 1-based real (delete=original, insert=retificado)</div>
           <div class="decision-item"><span class="decision-id">D-33</span>Defesa em profundidade dupla: roteador + motor revalidam tipo de obrigação na entrada</div>
+          <div class="decision-item"><span class="decision-id">D-34</span>Guarda explícita DebEspNaoSuportadoError em S1.0b: motor falha ao tentar recalcular saldo com DEB_ESP > 0 até cobertura PVA específica</div>
         </div>
       </div>
     </details>
@@ -1154,6 +1161,27 @@
     </details>
 
     <details>
+      <summary>P1+1 — Regra canônica de apuração ICMS</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (08/05/2026, commit <code>dc17e69</code>)</p>
+        <p><strong>Entrega:</strong> documento canônico <code>tasks/REGRA_APURACAO_ICMS_S1_1.md</code> separa propagação estrutural S1.0b, mérito fiscal S1.1 e ajustes E111. Define a fórmula canônica do E110 conforme Guia v3.2.1: <code>VL_ICMS_RECOLHER = VL_SLD_APURADO − VL_TOT_DED</code>; <code>DEB_ESP</code> entra na coerência posterior com E116.</p>
+        <p><strong>Recomendações fixadas:</strong> C2 inicial cobre apenas CST de <strong>entrada</strong> (D-22 mantida pendente); C18/E111 fica bloqueado até validar a ordem real do E111 contra Guia + SPED real.</p>
+        <p><strong>Consequência imediata:</strong> revelou bug latente no S1.0b — <code>_recalcular_saldos_e110</code> somava DEB_ESP em VL_ICMS_RECOLHER, divergindo da fórmula canônica. Mitigado por D-34 (guarda <code>DebEspNaoSuportadoError</code>, commit <code>d9d616e</code>) e registrado como L-35.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>S1.1.A — Análise CST entrada read-only experimental · FECHADO</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (08/05/2026, commit final <code>fa1021d</code>)</p>
+        <p><strong>Commits principais:</strong> <code>bc2c8bc</code> (dataclasses ContextoCSTEntrada e RecomendacaoCSTEntrada) · <code>bf54c81</code> (analisar_cst_icms_entrada read-only com resolução de @norma:) · <code>326f72f</code> (testes E2E sem mocks contra matriz e docs/legislacao_md/ reais) · <code>fa1021d</code> (registro de saída e critérios de aceite atendidos)</p>
+        <p><strong>Entregas:</strong> ~700 LOC totais (incluindo testes), 66 testes em <code>tests/test_analise_cst_entrada.py</code>. Análise read-only que examina CST de entrada e gera <code>RecomendacaoCSTEntrada</code> com normas resolvidas via registry.</p>
+        <p><strong>Bloqueio identificado:</strong> identificadores <code>@norma:</code> do YAML não casam por igualdade exata com filenames em <code>docs/legislacao_md/</code> — exemplos: <code>Lei_Kandir_LC87_1996</code> vs <code>LC_87_1996_Kandir.md</code>; <code>Convenio_ICMS_142_2018</code> vs <code>Convenio_ICMS_142_2018_ST.md</code>. Consequência: toda recomendação hoje sai com <code>bloqueada=True</code> e <code>normas=()</code>. Pré-requisito explícito do S1.1.B.</p>
+        <p><strong>Critérios de aceite:</strong> 13/13 atendidos (incluindo workaround documentado para CPython gh-91054, isolamento via monkeypatch, validação E2E sem mocks).</p>
+      </div>
+    </details>
+
+    <details>
       <summary>S1.0b — Propagação estrutural do motor ICMS/IPI · gate PVA APROVADO</summary>
       <div class="details-body">
         <p><strong>Status:</strong> Concluído (Tentativa 3 ACEITA pelo PVA real em 08/05/2026 12:48)</p>
@@ -1174,6 +1202,17 @@
   <h2 id="lessons-title" class="section-title">Lições recentes capturadas</h2>
   <p class="section-subtitle">Aprendizados convertidos em regra preventiva nas últimas duas semanas</p>
   <div class="details-section">
+
+    <details>
+      <summary>L-35 — Validação PVA com fixture de campo zerado mascara divergência da fórmula canônica</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> qualidade · apuração ICMS · S1.0b · <strong>Data:</strong> 08/05/2026 · <strong>Commit:</strong> <code>b694c8d</code></p>
+        <p><strong>Erro:</strong> S1.0b foi validado no PVA com fixture-base contendo <code>DEB_ESP=0</code>. A função interna <code>_recalcular_saldos_e110</code> derivava <code>VL_ICMS_RECOLHER</code> somando <code>DEB_ESP</code> ao saldo apurado, divergindo da fórmula canônica P1+1 (<code>VL_ICMS_RECOLHER = VL_SLD_APURADO − VL_TOT_DED</code>). PVA aceitou silenciosamente porque DEB_ESP=0 torna a divergência invisível.</p>
+        <p><strong>Causa raiz:</strong> validação PVA com fixture mínima não exercita campos opcionais não-zero. Reverse-engineering de helpers antigos sem cristalizar a fórmula canônica primeiro.</p>
+        <p><strong>Mitigação aplicada:</strong> D-34 (guarda explícita <code>DebEspNaoSuportadoError</code>, commit <code>d9d616e</code>) — motor falha de forma controlada ao receber DEB_ESP &gt; 0 até cobertura PVA específica.</p>
+        <p><strong>Regra preventiva:</strong> validar PVA com cobertura de cenários (DEB_ESP, VL_TOT_DED, ajustes E111, estornos, saldo credor anterior) — não apenas com fixture mínima. Cristalizar fórmulas canônicas em documento separado antes de implementar. Preferir guarda explícita (raise) a comportamento incorreto silencioso.</p>
+      </div>
+    </details>
 
     <details>
       <summary>L-31 — ISO-8859-1 é canônico em EFDs ICMS/IPI da ReceitaNetBX</summary>
@@ -1246,14 +1285,16 @@ const sprints = [
   { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
   { id: 'S1.0+1',   nome: 'S1.0+1 — Cristalização D-31/32/33',    status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
   { id: 'S1.0b',    nome: 'S1.0b — Propagação estrutural',        status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
-  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS',           status: 'progress', start: 13, span: 3, dias: '08 → 12/05'   },
-  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'next',     start: 16, span: 6, dias: '12 → 22/05'   },
-  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 22, span: 8, dias: '25/05 → 08/06' },
-  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 30, span: 7, dias: '08 → 18/06'   },
-  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',  status: 'planned',  start: 37, span: 2, dias: '~20/06'       },
-  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 39, span: 5, dias: '25/06 → 02/07' },
-  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 44, span: 6, dias: '02 → 10/07'   },
-  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 50, span: 10, dias: '10 → 24/07'  }
+  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS canônica',  status: 'done',     start: 13, span: 1, dias: '08/05 ✓'      },
+  { id: 'S1.1.A',   nome: 'S1.1.A — Análise CST entrada (read-only)', status: 'done', start: 14, span: 2, dias: '08/05 ✓'      },
+  { id: 'YAML×MD',  nome: 'Alinhamento @norma: YAML × filenames', status: 'progress', start: 16, span: 2, dias: '09 → 11/05'   },
+  { id: 'S1.1.B',   nome: 'S1.1.B — Aplicação experimental M-ICMS', status: 'next',   start: 18, span: 5, dias: '12 → 22/05'   },
+  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 23, span: 8, dias: '25/05 → 08/06' },
+  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 31, span: 7, dias: '08 → 18/06'   },
+  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',  status: 'planned',  start: 38, span: 2, dias: '~20/06'       },
+  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 40, span: 5, dias: '25/06 → 02/07' },
+  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 45, span: 6, dias: '02 → 10/07'   },
+  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 51, span: 10, dias: '10 → 24/07'  }
 ];
 
 const colorMap = {
@@ -1264,7 +1305,7 @@ const colorMap = {
   planned:  'var(--status-planned)'
 };
 
-const TOTAL_UNITS = 60;
+const TOTAL_UNITS = 61;
 
 function renderTimeline() {
   const container = document.getElementById('timeline');
