@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retificação EFD ICMS/IPI — J3F SPED Analyzer</title>
-<meta name="description" content="Dashboard público de progresso do motor de retificação automatizada EFD ICMS/IPI no J3F SPED Analyzer — Tax Intelligence.">
-<meta name="theme-color" content="#005263">
+<title>Loupe — Retificação EFD ICMS/IPI</title>
+<meta name="description" content="Dashboard público de progresso do Loupe — motor de auditoria fiscal automatizada para EFD ICMS/IPI. Powered by J3F Tax Intelligence.">
+<meta name="theme-color" content="#1A1A1A">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Retificação EFD ICMS/IPI — J3F SPED Analyzer">
-<meta property="og:description" content="Dashboard público de progresso do motor de retificação automatizada — J3F Tax Intelligence.">
+<meta property="og:title" content="Loupe — Retificação EFD ICMS/IPI">
+<meta property="og:description" content="Dashboard público de progresso do Loupe — motor de auditoria fiscal automatizada. Powered by J3F Tax Intelligence.">
 <meta property="og:url" content="https://joaoapiovam.github.io/j3f_dashboard/">
 <meta property="og:image" content="https://joaoapiovam.github.io/j3f_dashboard/assets/hero.png">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="400">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="J3F Tax Intelligence">
+<meta property="og:site_name" content="Loupe by J3F">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Retificação EFD ICMS/IPI — J3F SPED Analyzer">
-<meta name="twitter:description" content="Dashboard público de progresso do motor de retificação automatizada.">
+<meta name="twitter:title" content="Loupe — Retificação EFD ICMS/IPI">
+<meta name="twitter:description" content="Dashboard público de progresso do Loupe — motor de auditoria fiscal automatizada.">
 <meta name="twitter:image" content="https://joaoapiovam.github.io/j3f_dashboard/assets/hero.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,21 +30,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
+    /* Paleta Loupe (sub-marca de produto, dominante no header e acentos) */
+    --grafite: #1A1A1A;
+    --verde-cifrao: #1D9E75;
+    --verde-cifrao-dark: #167a5b;
+    --prata: #9CA3AF;
+    --papel: #FAFAF7;
+    --grade: #E5E5E5;
+
+    /* Paleta J3F (institucional, presente em rodapé e elementos secundários) */
     --verde-escuro: #005263;
     --teal: #00ACCA;
     --verde-claro: #96C9D7;
     --cobre: #9E947E;
     --bege-claro: #EEE7D7;
+
+    /* Tokens neutros */
     --branco: #FFFFFF;
     --texto-dark: #1A1A1A;
     --texto-mid: #505459;
     --cinza-borda: #E0E0E0;
-    --bg-page: #FAFAF8;
+    --bg-page: var(--papel);
     --bg-card: #FFFFFF;
-    --bg-secondary: #F5F4F0;
-    --status-done: #1D9E75;
-    --status-next: #00ACCA;
-    --status-progress: #007E94;
+    --bg-secondary: #F4F2EE;
+
+    /* Status colors — mapeados para a paleta Loupe quando faz sentido */
+    --status-done: var(--verde-cifrao);
+    --status-next: #4B5563;
+    --status-progress: var(--grafite);
     --status-blocked: #BA7517;
     --status-planned: #B4B2A9;
     --status-warning: #BA7517;
@@ -62,12 +75,12 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg-page: #0E1A1F;
-      --bg-card: #16252B;
-      --bg-secondary: #1F3239;
+      --bg-page: #0F0F10;
+      --bg-card: #1A1A1B;
+      --bg-secondary: #232326;
       --texto-dark: #F0EDE3;
       --texto-mid: #A8A8A0;
-      --cinza-borda: #2A3F47;
+      --cinza-borda: #2E2E32;
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
       --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
@@ -92,7 +105,7 @@
 
   /* HEADER ============================================== */
   .header {
-    background: var(--verde-escuro);
+    background: var(--grafite);
     color: var(--branco);
     padding: var(--space-xl) var(--space-md) var(--space-lg);
     margin-bottom: var(--space-lg);
@@ -108,7 +121,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.55;
+    opacity: 0.85;
     pointer-events: none;
     z-index: 0;
   }
@@ -116,7 +129,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(95deg, var(--verde-escuro) 0%, rgba(0, 82, 99, 0.78) 45%, rgba(0, 82, 99, 0.20) 100%);
+    background: linear-gradient(95deg, var(--grafite) 0%, rgba(26, 26, 26, 0.72) 45%, rgba(26, 26, 26, 0.15) 100%);
     pointer-events: none;
     z-index: 0;
   }
@@ -127,19 +140,37 @@
     position: relative;
     z-index: 1;
   }
-  .header-logo {
-    height: 44px;
-    width: auto;
+
+  /* Wordmark Loupe — placeholder até chegar arquivo vetorial oficial do designer */
+  .loupe-wordmark {
+    display: inline-block;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    color: var(--branco);
     margin-bottom: var(--space-md);
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
+    line-height: 1;
+    user-select: none;
   }
+  .loupe-wordmark::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    vertical-align: -2px;
+    border: 2.5px solid var(--verde-cifrao);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 -1px var(--prata);
+  }
+
   .header-eyebrow {
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: var(--verde-claro);
+    color: var(--prata);
     margin-bottom: 10px;
   }
   .header h1 {
@@ -153,7 +184,7 @@
   .header-subtitle {
     font-size: 17px;
     font-weight: 400;
-    color: var(--verde-claro);
+    color: rgba(229, 229, 229, 0.82);
     margin-bottom: var(--space-md);
     max-width: 720px;
     line-height: 1.45;
@@ -163,9 +194,9 @@
     gap: var(--space-md);
     flex-wrap: wrap;
     font-size: 13.5px;
-    color: var(--verde-claro);
+    color: rgba(229, 229, 229, 0.78);
     padding-top: var(--space-sm);
-    border-top: 1px solid rgba(150, 201, 215, 0.22);
+    border-top: 1px solid rgba(229, 229, 229, 0.14);
   }
   .header-meta span {
     display: inline-flex;
@@ -180,13 +211,13 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--teal);
-    box-shadow: 0 0 0 0 rgba(0, 172, 202, 0.6);
+    background: var(--verde-cifrao);
+    box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.6);
     animation: pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 172, 202, 0.6); }
-    50% { box-shadow: 0 0 0 8px rgba(0, 172, 202, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(29, 158, 117, 0); }
   }
   @media (prefers-reduced-motion: reduce) {
     .header-meta .pulse-dot { animation: none; }
@@ -217,7 +248,7 @@
   .kpi-card {
     background: var(--bg-card);
     border: 1px solid var(--cinza-borda);
-    border-left: 3px solid var(--teal);
+    border-left: 3px solid var(--verde-cifrao);
     border-radius: var(--radius-md);
     padding: var(--space-sm) 20px;
   }
@@ -377,11 +408,11 @@
     text-transform: uppercase;
     white-space: nowrap;
   }
-  .badge-done { background: rgba(29, 158, 117, 0.12); color: var(--status-done); }
-  .badge-next { background: rgba(0, 172, 202, 0.12); color: var(--verde-escuro); }
+  .badge-done { background: rgba(29, 158, 117, 0.14); color: var(--verde-cifrao-dark); }
+  .badge-next { background: rgba(75, 85, 99, 0.12); color: #374151; }
   .badge-progress {
-    background: rgba(0, 126, 148, 0.14);
-    color: var(--status-progress);
+    background: rgba(26, 26, 26, 0.10);
+    color: var(--grafite);
     position: relative;
     padding-left: 18px;
   }
@@ -394,13 +425,13 @@
     height: 6px;
     margin-top: -3px;
     border-radius: 50%;
-    background: var(--status-progress);
-    box-shadow: 0 0 0 0 rgba(0, 126, 148, 0.5);
+    background: var(--verde-cifrao);
+    box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.5);
     animation: pulse-badge 2s ease-in-out infinite;
   }
   @keyframes pulse-badge {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 126, 148, 0.5); }
-    50% { box-shadow: 0 0 0 5px rgba(0, 126, 148, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(29, 158, 117, 0); }
   }
   @media (prefers-reduced-motion: reduce) {
     .badge-progress::before { animation: none; }
@@ -480,7 +511,7 @@
   summary::after {
     content: '+';
     font-size: 18px;
-    color: var(--teal);
+    color: var(--verde-cifrao);
     font-weight: 400;
     transition: transform 0.2s ease;
   }
@@ -515,12 +546,12 @@
   }
   .decision-id {
     font-weight: 600;
-    color: var(--verde-escuro);
+    color: var(--verde-cifrao-dark);
     margin-right: 6px;
     font-size: 12px;
   }
   @media (prefers-color-scheme: dark) {
-    .decision-id { color: var(--teal); }
+    .decision-id { color: var(--verde-cifrao); }
   }
 
   /* MILESTONES ========================================== */
@@ -548,7 +579,7 @@
     flex-shrink: 0;
   }
   .milestone-marker.active {
-    background: var(--teal);
+    background: var(--verde-cifrao);
     color: var(--branco);
   }
   .milestone-content {
@@ -584,7 +615,7 @@
     font-weight: 600;
     font-family: ui-monospace, SF Mono, Monaco, monospace;
     font-size: 12px;
-    color: var(--verde-escuro);
+    color: var(--verde-cifrao-dark);
     background: var(--bg-card);
     padding: 2px 8px;
     border-radius: 4px;
@@ -593,7 +624,7 @@
     text-align: center;
   }
   @media (prefers-color-scheme: dark) {
-    .todo-id { color: var(--teal); background: var(--bg-page); }
+    .todo-id { color: var(--verde-cifrao); background: var(--bg-page); }
   }
   .todo-text {
     flex: 1;
@@ -624,6 +655,34 @@
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 11px;
+  }
+  .powered-by {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-sm);
+    padding: 10px 18px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--texto-mid);
+    font-weight: 500;
+  }
+  .powered-by-label {
+    color: var(--texto-mid);
+    font-weight: 400;
+    letter-spacing: 0.10em;
+  }
+  .powered-by-logo {
+    height: 22px;
+    width: auto;
+    opacity: 0.85;
+  }
+  @media (prefers-color-scheme: dark) {
+    .powered-by-logo { filter: brightness(0) invert(1); opacity: 0.7; }
   }
 
   /* RESPONSIVE ========================================== */
@@ -667,10 +726,10 @@
 <header class="header" role="banner">
   <img src="assets/hero.png" alt="" class="hero-bg" loading="eager" fetchpriority="high">
   <div class="header-content">
-    <img src="assets/logo-j3f.png" alt="J3F Tax Intelligence" class="header-logo">
-    <div class="header-eyebrow">Tax Engineering · Acompanhamento de projeto</div>
+    <div class="loupe-wordmark" aria-label="Loupe">LOUPE</div>
+    <div class="header-eyebrow">Loupe by J3F · Acompanhamento de projeto</div>
     <h1>Retificação EFD ICMS/IPI</h1>
-    <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias — J3F SPED Analyzer</div>
+    <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
     <div class="header-meta">
       <span>Atualizado: <strong id="last-update">08/05/2026</strong></span>
       <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">P1+1 (em curso)</strong></span>
@@ -793,7 +852,7 @@
         <div class="risk-title">Decisão sobre escopo de CST de saída pendente</div>
         <span class="risk-meta">D-22 · Severidade média</span>
       </div>
-      <p class="risk-description">Antes do Sprint S1.1 começar, Fábio precisa decidir se a categoria C2 (CST ICMS) abrange CST de <strong>saída</strong>. Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase — afeta dimensionamento e duração do sprint.</p>
+      <p class="risk-description">Antes do Sprint S1.1 começar, é necessário decidir se a categoria C2 (CST ICMS) abrange CST de <strong>saída</strong>. Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase — afeta dimensionamento e duração do sprint.</p>
     </div>
 
     <div class="risk-card">
@@ -809,7 +868,7 @@
 
 <section class="section" aria-labelledby="milestones-title">
   <h2 id="milestones-title" class="section-title">Próximos marcos</h2>
-  <p class="section-subtitle">Cronograma realista com base na velocidade observada de S1.0 e S1.0b. Datas em dias úteis, ajustáveis conforme gates externos (decisões fiscais do Fábio, Lucas Barreira, validações PVA).</p>
+  <p class="section-subtitle">Cronograma realista com base na velocidade observada de S1.0 e S1.0b. Datas em dias úteis, ajustáveis conforme gates externos (decisões fiscais, entregáveis de identidade visual, validações PVA).</p>
   <div class="milestone-list">
 
     <div class="milestone-item">
@@ -832,7 +891,7 @@
       <div class="milestone-marker">3</div>
       <div class="milestone-content">
         <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
-        <div class="milestone-meta">Janela 09 → 11/05/2026 · Fábio decide se S1.1 inclui classificação de CST de saída · Impacta dimensionamento do sprint</div>
+        <div class="milestone-meta">Janela 09 → 11/05/2026 · Decisão sobre incluir classificação de CST de saída em S1.1 · Impacta dimensionamento do sprint</div>
       </div>
     </div>
 
@@ -900,7 +959,7 @@
 
     <div class="todo-item">
       <div class="todo-id">D-22</div>
-      <div class="todo-text">Decisão pendente do Fábio: a categoria C2 (CST ICMS) abrange CST de saída? Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase.</div>
+      <div class="todo-text">Decisão pendente: a categoria C2 (CST ICMS) abrange CST de saída? Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase.</div>
       <div class="todo-when">Antes do S1.1</div>
     </div>
 
@@ -1157,11 +1216,17 @@
 </section>
 
 <footer class="footer">
-  <p>J3F Tax Intelligence · Tax Engineering · <strong>Precisão técnica. Segurança jurídica.</strong></p>
+  <p><strong>Loupe</strong> · Auditoria fiscal com precisão de joalheiro</p>
   <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch ativa: <code>codex/s1-0b-propagacao-estrutural</code></p>
   <p style="margin-top: 8px;">⚠️ <strong>Regra de isolamento:</strong> a branch da retificação permanece isolada de <code>main</code>. Tags <code>v3.13.0-rc1</code> e <code>v3.13.0-rc2</code> são checkpoints experimentais — não release de produção. Merge em <code>main</code> apenas após S1.0 + S1.0b + S1.1 + S1.2 + S1.3 todos validados em PVA real (D-28).</p>
-  <p style="margin-top: 8px;">Responsável técnico: Fábio Garcia da Silva — OAB/SP 232.079</p>
-  <p style="margin-top: 8px;">Repositório do dashboard: <a href="https://github.com/joaoapiovam/j3f_dashboard" style="color: var(--teal); text-decoration: none;">github.com/joaoapiovam/j3f_dashboard</a></p>
+
+  <div class="powered-by" aria-label="Powered by J3F Tax Intelligence">
+    <span class="powered-by-label">Powered by</span>
+    <img src="assets/logo-j3f.png" alt="J3F Tax Intelligence" class="powered-by-logo">
+  </div>
+
+  <p>Responsável técnico: Fábio Garcia da Silva — OAB/SP 232.079</p>
+  <p style="margin-top: 8px;">Repositório do dashboard: <a href="https://github.com/joaoapiovam/j3f_dashboard" style="color: var(--verde-cifrao-dark); text-decoration: none;">github.com/joaoapiovam/j3f_dashboard</a></p>
 </footer>
 
 </main>

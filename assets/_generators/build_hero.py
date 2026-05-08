@@ -1,10 +1,17 @@
 """Generate the dashboard hero PNG following the Structural Resonance philosophy.
 
-Output: assets/hero.png (1280 x 400, palette: J3F Brand 2026).
+Output: assets/hero.png (1280 x 400, palette: Loupe — sub-brand of J3F).
 
 Philosophy reference:
 docs/superpowers/specs/2026-05-07-hero-design-philosophy.md
 (stored in the J3F_SPED_Analyzer repo, not in the dashboard repo).
+
+Loupe palette (revisited 08/05/2026):
+- grafite #1A1A1A as the deep field
+- verde-cifrao #1D9E75 as the active signal
+- prata #9CA3AF as the resonant lines and quiet wave
+- cobre kept at very low opacity for the dot grid (continuity with the older
+  Structural Resonance composition; the warm trace of an older instrument)
 
 Usage:
     python build_hero.py
@@ -20,9 +27,9 @@ from PIL import Image, ImageDraw, ImageFilter
 WIDTH = 1280
 HEIGHT = 400
 
-VERDE_ESCURO = (0, 82, 99)
-TEAL = (0, 172, 202)
-VERDE_CLARO = (150, 201, 215)
+GRAFITE = (26, 26, 26)
+VERDE_CIFRAO = (29, 158, 117)
+PRATA = (156, 163, 175)
 COBRE = (158, 148, 126)
 
 
@@ -33,15 +40,16 @@ def _interp(c1: tuple[int, int, int], c2: tuple[int, int, int], t: float) -> tup
 
 
 def _paint_field(img: Image.Image) -> None:
-    """Two-stop horizontal field: deep verde escuro on the left, gently lifting toward
-    a slightly warmer institutional teal on the right. No third stop — the brand
-    forbids gradient theatrics. The lift is just enough to make the field feel awake."""
+    """Two-stop horizontal field: deep grafite on the left, gently lifting toward a
+    slightly warmer near-grafite on the right. No third stop — the Loupe brand
+    forbids gradient theatrics. The lift is just enough to make the field feel awake
+    and to give the eye a slow direction without ever leaving the institutional dark."""
     pixels = img.load()
-    end = (0, 90, 110)
+    end = (40, 40, 42)
     for x in range(WIDTH):
         t = x / (WIDTH - 1)
         smooth = 0.5 - 0.5 * math.cos(math.pi * t)
-        col = _interp(VERDE_ESCURO, end, smooth * 0.55)
+        col = _interp(GRAFITE, end, smooth * 0.55)
         for y in range(HEIGHT):
             pixels[x, y] = col
 
@@ -90,7 +98,7 @@ def _draw_line_field(img: Image.Image) -> None:
         if alpha < 8:
             continue
 
-        color = (*VERDE_CLARO, alpha)
+        color = (*PRATA, alpha)
         x_top = baseline_y - height
         x = x_center * scale
         y0 = x_top * scale
@@ -114,12 +122,12 @@ def _draw_quiet_wave(img: Image.Image) -> None:
     od = ImageDraw.Draw(over)
 
     waves = [
-        {"y": 322, "amp": 18, "period": 820, "phase": 0.0,        "alpha": 175, "thick": 1.6},
-        {"y": 350, "amp": 12, "period": 980, "phase": 0.6 * math.pi, "alpha": 95, "thick": 1.2},
+        {"y": 322, "amp": 18, "period": 820, "phase": 0.0,        "alpha": 195, "thick": 1.6, "color": VERDE_CIFRAO},
+        {"y": 350, "amp": 12, "period": 980, "phase": 0.6 * math.pi, "alpha": 110, "thick": 1.2, "color": PRATA},
     ]
 
     for w in waves:
-        color = (*TEAL, w["alpha"])
+        color = (*w["color"], w["alpha"])
         samples = []
         for x in range(0, WIDTH + 1, 2):
             y = w["y"] + w["amp"] * math.sin((x / w["period"]) * 2 * math.pi + w["phase"])
@@ -175,11 +183,11 @@ def _draw_baseline_rule(img: Image.Image) -> None:
     canvas edge: a museum vitrine never touches its own glass."""
     od = ImageDraw.Draw(img, "RGBA")
     y = 286
-    od.line([(72, y), (WIDTH - 72, y)], fill=(*VERDE_CLARO, 60), width=1)
+    od.line([(72, y), (WIDTH - 72, y)], fill=(*PRATA, 65), width=1)
 
 
 def build() -> Path:
-    img = Image.new("RGB", (WIDTH, HEIGHT), VERDE_ESCURO)
+    img = Image.new("RGB", (WIDTH, HEIGHT), GRAFITE)
     _paint_field(img)
     _draw_dot_grid(img)
     _draw_quiet_wave(img)
