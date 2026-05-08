@@ -672,10 +672,10 @@
     <h1>Retificação EFD ICMS/IPI</h1>
     <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias — J3F SPED Analyzer</div>
     <div class="header-meta">
-      <span>Atualizado: <strong id="last-update">07/05/2026</strong></span>
-      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.0 (PRE-FECHAMENTO)</strong></span>
-      <span>Versão alvo: <strong>v3.13.0-rc1</strong></span>
-      <span>Branch: <strong>claude/strange-albattani-8d7f6a</strong></span>
+      <span>Atualizado: <strong id="last-update">08/05/2026</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">P1+1 (em curso)</strong></span>
+      <span>Checkpoint atual: <strong>v3.13.0-rc2</strong></span>
+      <span>Branch: <strong>codex/s1-0b-propagacao-estrutural</strong></span>
     </div>
   </div>
 </header>
@@ -688,26 +688,26 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">37%</div>
-      <div class="kpi-context">4 fechados + S1.0 em PRE-FECHAMENTO (4,8 de 13)</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 37%;"></div>
+      <div class="kpi-value">54%</div>
+      <div class="kpi-context">7 de 13 sprints concluídos (Família E completa)</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 54%;"></div>
       </div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Decisões arquiteturais</div>
-      <div class="kpi-value">30</div>
-      <div class="kpi-context">D-1 a D-30 + D-IND_SIT (motor ICMS/IPI)</div>
+      <div class="kpi-value">33</div>
+      <div class="kpi-context">D-1 a D-33 + D-IND_SIT (motor ICMS/IPI)</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Cobertura de testes</div>
-      <div class="kpi-value">82%</div>
-      <div class="kpi-context">~2.385 testes automatizados na suíte</div>
+      <div class="kpi-label">Gates PVA aprovados</div>
+      <div class="kpi-value">2/2</div>
+      <div class="kpi-context">D-20 (S1.0 — Tentativa 6) + D-20b (S1.0b — Tentativa 3)</div>
     </div>
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
-      <div class="kpi-value">3</div>
-      <div class="kpi-context">D-20 PVA, P1+1 apuração, D-17 schemas CIAP</div>
+      <div class="kpi-value">2</div>
+      <div class="kpi-context">D-22 escopo CST saída, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -735,24 +735,24 @@
     <div class="family-card">
       <div class="family-header">
         <div class="family-name">Família E — Estrutural</div>
-        <span class="badge badge-progress">Em fechamento</span>
+        <span class="badge badge-done">Concluída</span>
       </div>
-      <p class="family-description">Marcação de retificadora (COD_FIN), recálculo do Bloco 9 com auto-referência, contadores X990 e propagação simulada de E110/C190. Suite de testes byte-a-byte completa; aguarda Tentativa final no PVA real.</p>
+      <p class="family-description">Marcação de retificadora (COD_FIN), recálculo do Bloco 9 com auto-referência, contadores X990 e propagação material controlada (C170 → C190 → C100; E110 → E116 com guarda de inversão de regime). Dois gates PVA reais aprovados — S1.0 (07/05) e S1.0b (08/05).</p>
       <div class="family-footer">
-        <span>Sprints S1.0 + S1.0b</span>
-        <span>4-5 dias</span>
+        <span>Sprints S1.0 + S1.0b ✓</span>
+        <span>5 dias úteis</span>
       </div>
     </div>
 
     <div class="family-card">
       <div class="family-header">
         <div class="family-name">Família M-ICMS</div>
-        <span class="badge badge-planned">Planejado</span>
+        <span class="badge badge-next">Próximo</span>
       </div>
-      <p class="family-description">CST, CFOP, ICMS-ST e DIFAL com modo experimental, audit trail e dupla confirmação obrigatória.</p>
+      <p class="family-description">CST, CFOP, ICMS-ST e DIFAL com modo experimental, audit trail e dupla confirmação obrigatória. Pré-requisito P1+1 (regra canônica de apuração ICMS) em curso. Aguarda decisão D-22 sobre escopo de CST de saída antes de iniciar.</p>
       <div class="family-footer">
-        <span>Sprint S1.1</span>
-        <span>3-4 dias</span>
+        <span>Sprint S1.1 (após P1+1)</span>
+        <span>5-7 dias úteis</span>
       </div>
     </div>
 
@@ -761,10 +761,10 @@
         <div class="family-name">Família CIAP</div>
         <span class="badge badge-blocked">Bloqueado</span>
       </div>
-      <p class="family-description">Crédito do ativo permanente, parcela 1/48 e fator mensal de saídas tributadas. Aguarda extensão de schemas G110/G125.</p>
+      <p class="family-description">Crédito do ativo permanente, parcela 1/48 e fator mensal de saídas tributadas. Aguarda extensão de schemas G110/G125 (TODO P0+1) antes do início. Estimativa revisada com base na velocidade real do S1.0/S1.0b.</p>
       <div class="family-footer">
         <span>Sprint S1.2</span>
-        <span>4-5 dias</span>
+        <span>6-8 dias úteis</span>
       </div>
     </div>
 
@@ -773,10 +773,10 @@
         <div class="family-name">Família IPI</div>
         <span class="badge badge-blocked">Bloqueado</span>
       </div>
-      <p class="family-description">CST IPI, alíquota, base de cálculo e crédito de entrada. Aguarda extensão do schema do C170 e do registro E520.</p>
+      <p class="family-description">CST IPI, alíquota, base de cálculo e crédito de entrada. Aguarda extensão dos schemas C170 (P0+2) e E520 (P0+3). Estimativa revisada com base na velocidade real.</p>
       <div class="family-footer">
         <span>Sprint S1.3</span>
-        <span>3-4 dias</span>
+        <span>5-7 dias úteis</span>
       </div>
     </div>
 
@@ -788,20 +788,12 @@
   <p class="section-subtitle">Situações que podem impactar prazo ou escopo</p>
   <div class="risk-list">
 
-    <div class="risk-card severity-high">
-      <div class="risk-header">
-        <div class="risk-title">Regra de apuração ICMS canônica não documentada</div>
-        <span class="risk-meta">P1+1 · Severidade alta</span>
-      </div>
-      <p class="risk-description">Sprint S1.1 (Família M-ICMS) só pode iniciar após regra fiscal real de apuração de E110 estar documentada com fundamentação normativa. Sem esse marco, cada correção fiscal recalcularia totalizadores de forma inconsistente.</p>
-    </div>
-
     <div class="risk-card">
       <div class="risk-header">
-        <div class="risk-title">Validação no PVA real ainda pendente (Tentativa 5)</div>
-        <span class="risk-meta">D-20 · Severidade média</span>
+        <div class="risk-title">Decisão sobre escopo de CST de saída pendente</div>
+        <span class="risk-meta">D-22 · Severidade média</span>
       </div>
-      <p class="risk-description">Cinco tentativas até aqui — Tentativa 5 (06/05/2026, fixture conforme Guia v3.2.1, período 01/2023, COD_VER 017) teve <strong>estrutura aceita 2× pelo PVA</strong>, mas conteúdo (linhas C190/E110) ainda pendente. Hipótese confirmada (b9ebe30): fixtures sintéticas mínimas "nascem condenadas" — gate D-20 deve usar EFD real anonimizada. Resolvido via TODO T-3 (fixture PVA-conforme dedicada).</p>
+      <p class="risk-description">Antes do Sprint S1.1 começar, Fábio precisa decidir se a categoria C2 (CST ICMS) abrange CST de <strong>saída</strong>. Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase — afeta dimensionamento e duração do sprint.</p>
     </div>
 
     <div class="risk-card">
@@ -817,46 +809,78 @@
 
 <section class="section" aria-labelledby="milestones-title">
   <h2 id="milestones-title" class="section-title">Próximos marcos</h2>
-  <p class="section-subtitle">Sequência de entregas dos próximos 30 dias úteis</p>
+  <p class="section-subtitle">Cronograma realista com base na velocidade observada de S1.0 e S1.0b. Datas em dias úteis, ajustáveis conforme gates externos (decisões fiscais do Fábio, Lucas Barreira, validações PVA).</p>
   <div class="milestone-list">
 
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">Tentativa final no PVA real (gate D-20)</div>
-        <div class="milestone-meta">Em curso · Fixture PVA-conforme dedicada (TODO T-3) · Fecha S1.0 quando PVA aceitar conteúdo</div>
+        <div class="milestone-title">P1+1 — Regra canônica de apuração ICMS</div>
+        <div class="milestone-meta">08 → 12/05/2026 · Em curso · Documenta fundamentação normativa (estornos, ajustes, transferências de saldo credor, DIFAL acumulado) e valida compatibilidade com mecanismo do S1.0b</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">2</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.0b — propagação E110 e C190</div>
-        <div class="milestone-meta">2 dias · Mecanismo de recálculo após alteração simulada</div>
+        <div class="milestone-title">🏷️ Checkpoint v3.13.0-rc2 (S1.0 + S1.0b)</div>
+        <div class="milestone-meta">Tag a criar nesta semana · Família E completa em PVA real · NÃO é release de produção (regra de isolamento do main vigente)</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">3</div>
       <div class="milestone-content">
-        <div class="milestone-title">Tag oficial v3.13.0</div>
-        <div class="milestone-meta">Após S1.0 + S1.0b validados no PVA · Primeiro release público do motor ICMS/IPI</div>
+        <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
+        <div class="milestone-meta">Janela 09 → 11/05/2026 · Fábio decide se S1.1 inclui classificação de CST de saída · Impacta dimensionamento do sprint</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">4</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.1 — Família M-ICMS</div>
-        <div class="milestone-meta">3-4 dias · Correções fiscais com modo experimental e gabarito manual · Bloqueado por P1+1 (regra de apuração)</div>
+        <div class="milestone-title">Sprint S1.1 — Família M-ICMS (mérito fiscal)</div>
+        <div class="milestone-meta">12 → 22/05/2026 · 5-7 dias úteis · Correções com modo experimental e dupla confirmação (D-21) · Encerra com gate PVA real</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">5</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprints S1.2 + S1.3 — CIAP e IPI</div>
-        <div class="milestone-meta">7-9 dias · Após resolução dos TODOs de extensão de schemas (P0+1, P0+2, P0+3)</div>
+        <div class="milestone-title">Sprint S1.2 — Família CIAP</div>
+        <div class="milestone-meta">25/05 → 08/06/2026 · 6-8 dias úteis · Pré-requisito P0+1 (schemas G110/G125) entra no início · Encerra com gate PVA real</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">6</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.3 — Família IPI</div>
+        <div class="milestone-meta">08 → 18/06/2026 · 5-7 dias úteis · Pré-requisitos P0+2 (schemas C170 com IPI) e P0+3 (E520) · Encerra com gate PVA real</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">7</div>
+      <div class="milestone-content">
+        <div class="milestone-title">🏷️ Tag v3.13.0 oficial (sem sufixo)</div>
+        <div class="milestone-meta">~18-20/06/2026 · Após S1.0 + S1.0b + S1.1 + S1.2 + S1.3 todos validados em PVA real · Apto a sair da branch para o main</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">8</div>
+      <div class="milestone-content">
+        <div class="milestone-title">🚀 Merge em <code>main</code> + S2 (linguagem natural)</div>
+        <div class="milestone-meta">~25/06 → 02/07/2026 · 4-5 dias úteis · Branch da retificação volta para o tronco principal e S2 começa em ambiente unificado</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">9</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprints S3-S4 + S5-S7 — pipeline + batch + audit + wizard</div>
+        <div class="milestone-meta">02/07 → 17/07/2026 · 13-16 dias úteis · Aprovação, pipeline PVA automático, batch, audit, wizard de uso</div>
       </div>
     </div>
 
@@ -869,20 +893,14 @@
   <div class="todo-list">
 
     <div class="todo-item">
-      <div class="todo-id">T-3</div>
-      <div class="todo-text">Substituir fixture sintética por EFD real anonimizada como gate D-20. Hipótese confirmada (b9ebe30): fixtures mínimas "nascem condenadas" no PVA — somente arquivo originado por SEFAZ tem ordem de campos e contadores aceitáveis pelo validador oficial.</div>
+      <div class="todo-id">P1+1</div>
+      <div class="todo-text">Documentar regra canônica de apuração ICMS em <code>tasks/REGRA_APURACAO_ICMS_S1_1.md</code>. Cobrir estornos, ajustes, transferências de saldo credor anterior e DIFAL acumulado. Validar compatibilidade com mecanismo do S1.0b (<code>_calcular_saldo_apurado</code> + propagação E116) antes de iniciar S1.1.</div>
       <div class="todo-when">Em curso</div>
     </div>
 
     <div class="todo-item">
-      <div class="todo-id">P1+0</div>
-      <div class="todo-text">Extrair função de detecção de tipo de obrigação do dashboard para módulo compartilhado. Concluído em 04/05/2026 com refinamento P1+0.1 (consenso multi-sinal).</div>
-      <div class="todo-when">Concluído</div>
-    </div>
-
-    <div class="todo-item">
-      <div class="todo-id">P1+1</div>
-      <div class="todo-text">Definir regra canônica de apuração ICMS para Sprint S1.1. Documentar fundamentação normativa antes de qualquer correção de mérito.</div>
+      <div class="todo-id">D-22</div>
+      <div class="todo-text">Decisão pendente do Fábio: a categoria C2 (CST ICMS) abrange CST de saída? Se sim, S1.1 inclui implementação de <code>classificar_cst_icms_saida()</code> que ainda não existe no codebase.</div>
       <div class="todo-when">Antes do S1.1</div>
     </div>
 
@@ -911,8 +929,26 @@
     </div>
 
     <div class="todo-item">
+      <div class="todo-id">T-2</div>
+      <div class="todo-text">Aplicar defesa em profundidade D-33 a <code>motor.py</code> (Contribuições): revalidação na entrada com <code>TipoObrigacaoIncompativelError</code>. Hoje só <code>motor_icms_ipi</code> revalida — chamadores diretos do motor de Contribuições dependem implicitamente do roteador.</div>
+      <div class="todo-when">Antes do S2</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">T-3</div>
+      <div class="todo-text">Substituir fixture sintética por EFD real anonimizada como gate D-20. Resolvido em 07/05/2026: Tentativa 6 do S1.0 incluiu registro 1010 obrigatório no Bloco 1 e foi ACEITA pelo PVA. Mesmo padrão usado para fechar S1.0b.</div>
+      <div class="todo-when">Concluído</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">P1+0</div>
+      <div class="todo-text">Extrair função de detecção de tipo de obrigação do dashboard para módulo compartilhado. Concluído em 04/05/2026 com refinamento P1+0.1 (consenso multi-sinal).</div>
+      <div class="todo-when">Concluído</div>
+    </div>
+
+    <div class="todo-item">
       <div class="todo-id">L-31</div>
-      <div class="todo-text">Hardening em app/parsers/efd_icms_ipi.py: tentar ISO-8859-1 PRIMEIRO em parsers de EFD da ReceitaNetBX (Convênio ICMS 143/2006). Auto-detect probabilístico (chardet) gera replacement chars silenciosos em arquivos grandes.</div>
+      <div class="todo-text">Hardening em <code>app/parsers/efd_icms_ipi.py</code>: tentar ISO-8859-1 PRIMEIRO em parsers de EFD da ReceitaNetBX (Convênio ICMS 143/2006). Auto-detect probabilístico (chardet) gera replacement chars silenciosos em arquivos grandes.</div>
       <div class="todo-when">Backlog</div>
     </div>
 
@@ -950,12 +986,13 @@
           <div class="decision-item"><span class="decision-id">D-15</span>Schemas compatíveis com REGISTRO_SCHEMAS oficial</div>
           <div class="decision-item"><span class="decision-id">D-17</span>G110/G125 ausentes são GAP a sanar antes do S1.2</div>
           <div class="decision-item"><span class="decision-id">D-23</span>Extensão do parser em P0+2 (IPI) e P0+3 (E520)</div>
+          <div class="decision-item"><span class="decision-id">D-31</span>Schemas cristalizam apenas índices tocados em cada sprint (0000 minimalista no S1.0)</div>
         </div>
       </div>
     </details>
 
     <details>
-      <summary>Decisões de preservação byte-a-byte (D-24 e correlatas)</summary>
+      <summary>Decisões de preservação byte-a-byte e robustez (D-24 e correlatas)</summary>
       <div class="details-body">
         <div class="decisions-list">
           <div class="decision-item"><span class="decision-id">D-6</span>Leitura em bytes brutos, decode localizado</div>
@@ -964,6 +1001,8 @@
           <div class="decision-item"><span class="decision-id">D-26</span>Bloco 9 em ordem determinística documentada</div>
           <div class="decision-item"><span class="decision-id">D-27</span>C190 falha explícita se campo não derivável</div>
           <div class="decision-item"><span class="decision-id">D-29</span>Princípio de falha explícita</div>
+          <div class="decision-item"><span class="decision-id">D-32</span>ModificacaoRegistro.num_linha sempre 1-based real (delete=original, insert=retificado)</div>
+          <div class="decision-item"><span class="decision-id">D-33</span>Defesa em profundidade dupla: roteador + motor revalidam tipo de obrigação na entrada</div>
         </div>
       </div>
     </details>
@@ -1033,13 +1072,39 @@
     </details>
 
     <details>
-      <summary>S1.0 — Motor estrutural mínimo (família E) · em PRE-FECHAMENTO</summary>
+      <summary>S1.0 — Motor estrutural mínimo (família E) · gate D-20 APROVADO</summary>
       <div class="details-body">
-        <p><strong>Status:</strong> PRE-FECHAMENTO (gate D-20 pendente)</p>
-        <p><strong>Commits principais:</strong> a34f054 (recálculo Bloco 9 com auto-referência) · 67d2608 (E1, E2, E3) · e474b56 (motor com defesa em profundidade) · 6841023 (motor universal — roteador) · 0ea68e3 (E2 num_linha real) · 36d4c7e (suite final byte-a-byte) · 2c731e9 (PRE-FECHAMENTO)</p>
+        <p><strong>Status:</strong> Concluído (Tentativa 6 ACEITA pelo PVA real em 07/05/2026)</p>
+        <p><strong>Commits principais:</strong> a34f054 (recálculo Bloco 9) · 67d2608 (E1/E2/E3) · e474b56 (motor com defesa em profundidade) · 6841023 (motor universal — roteador) · 0ea68e3 (E2 num_linha real) · 36d4c7e (suite final byte-a-byte) · a7d1e4e (Tentativa 6 — registro 1010 obrigatório) · 8999b32 (Tentativa 6 ACEITA — gate D-20 fechado)</p>
         <p><strong>Entregas:</strong> motor de retificação EFD ICMS/IPI completo para a família estrutural — marcação de retificadora via COD_FIN (D-IND_SIT), recálculo determinístico do Bloco 9 com auto-referência (D-26), correções E1/E2/E3 estruturais, motor universal com roteamento Contribuições↔ICMS/IPI, suite de testes byte-a-byte completa.</p>
-        <p><strong>Tentativas no PVA real (gate D-20):</strong> 5 tentativas até aqui. Tentativa 3 (Bloco B vazio, 6c8ce28); Tentativa 4 (CNPJ/IE válidos + COD_VER 015 + 0005/0100/H005, f141cae); Tentativa 5 (Guia v3.2.1 oficial, período 01/2023, COD_VER 017, 4d0301a) — <strong>estrutura aceita 2×</strong>, conteúdo ainda pendente.</p>
-        <p><strong>Hipótese confirmada (b9ebe30):</strong> fixtures sintéticas mínimas "nascem condenadas" no PVA. Resolução proposta no TODO T-3: usar EFD real anonimizada como gate.</p>
+        <p><strong>Caminho até o gate D-20:</strong> 6 tentativas no PVA. Tentativa 5 confirmou (b9ebe30) que fixtures sintéticas mínimas "nascem condenadas" — solução foi usar EFD real anonimizada com registro 1010 obrigatório (Tentativa 6).</p>
+        <p><strong>Hash do arquivo aceito:</strong> <code>28cbc41d…0825cf713c</code> · <strong>Checkpoint:</strong> tag <code>v3.13.0-rc1</code> (anotada).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>S1.0+1 — Cristalização das decisões emergentes</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (07/05/2026, commit <code>3371c9c</code>)</p>
+        <p><strong>Entrega:</strong> três decisões arquiteturais que emergiram da execução do S1.0 e foram cristalizadas no plano canônico para guiar sprints subsequentes.</p>
+        <p><strong>Decisões cristalizadas:</strong></p>
+        <p>· <strong>D-31</strong> — schemas do motor cristalizam apenas os índices dos campos efetivamente tocados em cada sprint (ex: 0000 minimalista no S1.0 — só REG/COD_VER/COD_FIN). Razão: layouts variam por versão do Guia e por perfil de obrigação; cristalizar com base em fixture sintética não-padrão gera falso positivo (L-DET-01/02/03 do P1+0.1).</p>
+        <p>· <strong>D-32</strong> — <code>ModificacaoRegistro.num_linha</code> declara sempre posição real 1-based (no original para deletes, no retificado para inserts). <code>num_linha=0</code> proibido. Reordenações = par delete+insert; duplicatas removidas declaradas na posição da duplicata.</p>
+        <p>· <strong>D-33</strong> — defesa em profundidade dupla na detecção de tipo de obrigação: <code>motor_universal</code> valida no roteador <strong>e</strong> cada motor especializado revalida na entrada. <code>motor_icms_ipi</code> ✓; <code>motor.py</code> (Contribuições) pendente — TODO T-2.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>S1.0b — Propagação estrutural do motor ICMS/IPI · gate PVA APROVADO</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (Tentativa 3 ACEITA pelo PVA real em 08/05/2026 12:48)</p>
+        <p><strong>Commits principais:</strong> 3d6c2f7 (schemas e erros) · 86d7454 (primitivo de alteração material) · 7b5aecb (propagação C170→C190) · 11414d8 (delta E110) · a90dcca (integração ao motor) · d9b98f5 (propagação C170→C100 pai) · 4a5aff1 (propagação E110→E116 com guarda) · aa2acd2 (integração C100/E116) · ac3e7a7 (Tentativa 3 — propagações C100/E116) · bae76b2 (gate PVA fechado)</p>
+        <p><strong>Entregas:</strong> motor expandido para suportar <strong>propagação estrutural</strong> quando o operador altera materialmente um C170. Whitelist estrita do primitivo <code>AlteracaoMaterialControlada</code> (apenas <code>C170.VL_ICMS</code>, <code>linha_sped &gt; 0</code>, <code>Decimal</code> finito não-negativo). Cinco propagações documentadas:</p>
+        <p>· <code>_aplicar_alteracao_c170_e_c190</code> — altera C170, propaga delta para o C190 do grupo</p>
+        <p>· <code>_aplicar_propagacao_c100</code> — propaga delta para o C100 pai</p>
+        <p>· <code>_aplicar_delta_e110</code> — atualiza E110, recalcula saldos, com guarda contra inversão de regime (<code>DeltaApuracaoNaoSuportadoError</code>)</p>
+        <p>· <code>_aplicar_propagacao_e116</code> — propaga delta de obrigação para E116, com <code>RegistroE116AusenteError</code> em caso de ausência</p>
+        <p><strong>Hash do arquivo aceito:</strong> <code>81356267…0825cf713c</code> · <strong>Checkpoint:</strong> tag <code>v3.13.0-rc2</code> a criar nesta semana.</p>
       </div>
     </details>
 
@@ -1093,7 +1158,8 @@
 
 <footer class="footer">
   <p>J3F Tax Intelligence · Tax Engineering · <strong>Precisão técnica. Segurança jurídica.</strong></p>
-  <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch <code>claude/strange-albattani-8d7f6a</code></p>
+  <p style="margin-top: 8px;">Plano canônico: <code>tasks/PLANO_RETIFICACAO_ESTADO_DA_ARTE.md</code> · Branch ativa: <code>codex/s1-0b-propagacao-estrutural</code></p>
+  <p style="margin-top: 8px;">⚠️ <strong>Regra de isolamento:</strong> a branch da retificação permanece isolada de <code>main</code>. Tags <code>v3.13.0-rc1</code> e <code>v3.13.0-rc2</code> são checkpoints experimentais — não release de produção. Merge em <code>main</code> apenas após S1.0 + S1.0b + S1.1 + S1.2 + S1.3 todos validados em PVA real (D-28).</p>
   <p style="margin-top: 8px;">Responsável técnico: Fábio Garcia da Silva — OAB/SP 232.079</p>
   <p style="margin-top: 8px;">Repositório do dashboard: <a href="https://github.com/joaoapiovam/j3f_dashboard" style="color: var(--teal); text-decoration: none;">github.com/joaoapiovam/j3f_dashboard</a></p>
 </footer>
@@ -1104,20 +1170,25 @@
 // =============================================================
 // DADOS DO TIMELINE — atualizar aqui quando avançar de sprint
 // =============================================================
+// Datas-âncora: hoje 08/05/2026.
+// Cada sprint na timeline declara span proporcional aos dias úteis estimados (re-estimativa pós-S1.0/S1.0b)
+// e a coluna "dias" exibe data real de fechamento (sprints concluídos) ou janela alvo (sprints futuros).
 const sprints = [
-  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',     start: 0,  span: 1, dias: '0,5d' },
-  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',     start: 1,  span: 1, dias: '0,2d' },
-  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',     start: 2,  span: 1, dias: '0,5d' },
-  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',     start: 3,  span: 1, dias: '0,3d' },
-  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'progress', start: 4,  span: 3, dias: '2-3d' },
-  { id: 'S1.0b',    nome: 'S1.0b — Propagação simulada',          status: 'next',     start: 7,  span: 2, dias: '2d'   },
-  { id: 'S1.0+1',   nome: 'S1.0+1 — Manutenção do canônico',      status: 'planned',  start: 9,  span: 1, dias: '0,2d' },
-  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'planned',  start: 10, span: 4, dias: '3-4d' },
-  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 14, span: 5, dias: '4-5d' },
-  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 19, span: 4, dias: '3-4d' },
-  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 23, span: 3, dias: '3d'   },
-  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 26, span: 4, dias: '3-4d' },
-  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 30, span: 6, dias: '6d'   }
+  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',     start: 0,  span: 1, dias: '01/05'        },
+  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',     start: 1,  span: 1, dias: '02/05'        },
+  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',     start: 2,  span: 1, dias: '04/05'        },
+  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',     start: 3,  span: 1, dias: '05/05'        },
+  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
+  { id: 'S1.0+1',   nome: 'S1.0+1 — Cristalização D-31/32/33',    status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
+  { id: 'S1.0b',    nome: 'S1.0b — Propagação estrutural',        status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
+  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS',           status: 'progress', start: 13, span: 3, dias: '08 → 12/05'   },
+  { id: 'S1.1',     nome: 'S1.1 — Família M-ICMS (mérito)',       status: 'next',     start: 16, span: 6, dias: '12 → 22/05'   },
+  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 22, span: 8, dias: '25/05 → 08/06' },
+  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 30, span: 7, dias: '08 → 18/06'   },
+  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',  status: 'planned',  start: 37, span: 2, dias: '~20/06'       },
+  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 39, span: 5, dias: '25/06 → 02/07' },
+  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 44, span: 6, dias: '02 → 10/07'   },
+  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 50, span: 10, dias: '10 → 24/07'  }
 ];
 
 const colorMap = {
@@ -1128,7 +1199,7 @@ const colorMap = {
   planned:  'var(--status-planned)'
 };
 
-const TOTAL_UNITS = 36;
+const TOTAL_UNITS = 60;
 
 function renderTimeline() {
   const container = document.getElementById('timeline');
