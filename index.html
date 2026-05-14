@@ -731,8 +731,8 @@
     <h1>Retificação EFD ICMS/IPI</h1>
     <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
     <div class="header-meta">
-      <span>Atualizado: <strong id="last-update">08/05/2026</strong></span>
-      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.B em planejamento</strong></span>
+      <span>Atualizado: <strong id="last-update">14/05/2026</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.B em curso (pipeline_c170, Commit 4/N)</strong></span>
       <span>Checkpoint atual: <strong>v3.13.0-rc2</strong></span>
       <span>Branch: <strong>codex/s1-0b-propagacao-estrutural</strong></span>
     </div>
@@ -747,10 +747,10 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">60%</div>
-      <div class="kpi-context">Família E completa + P1+1 + S1.1.A read-only fechados</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 60%;"></div>
+      <div class="kpi-value">65%</div>
+      <div class="kpi-context">Família E ✓ + P1+1 ✓ + S1.1.A ✓ + S1.1.A.1 ✓ + S1.1.B-pre ✓ · S1.1.B em curso</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 65%;"></div>
       </div>
     </div>
     <div class="kpi-card">
@@ -765,8 +765,8 @@
     </div>
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
-      <div class="kpi-value">3</div>
-      <div class="kpi-context">YAML × normas desalinhados, D-22 CST saída, D-17 schemas CIAP</div>
+      <div class="kpi-value">2</div>
+      <div class="kpi-context">D-22 CST saída, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -808,10 +808,10 @@
         <div class="family-name">Família M-ICMS</div>
         <span class="badge badge-progress">Em curso</span>
       </div>
-      <p class="family-description">S1.1.A ✓ análise CST entrada read-only experimental fechada (66 testes, ~700 LOC). S1.1.B (próximo) habilita aplicação experimental — bloqueado por desalinhamento entre identificadores <code>@norma:</code> do YAML e filenames em <code>docs/legislacao_md/</code>.</p>
+      <p class="family-description">S1.1.A ✓ análise CST entrada read-only (66 testes); S1.1.A.1 ✓ alias map de normas (4 identificadores resolvidos); S1.1.B-pre ✓ <code>cfop_destinacao.yaml</code> aprovado juridicamente (37 testes). S1.1.B em curso — pipeline <code>c170</code> com cruzamento + análise CST + audit JSONL (Commit 4/N entregue).</p>
       <div class="family-footer">
-        <span>S1.1.A ✓ · S1.1.B planejado</span>
-        <span>5-7 dias úteis no total</span>
+        <span>S1.1.A/A.1/B-pre ✓ · S1.1.B em curso</span>
+        <span>~6 dias úteis restantes</span>
       </div>
     </div>
 
@@ -847,20 +847,12 @@
   <p class="section-subtitle">Situações que podem impactar prazo ou escopo</p>
   <div class="risk-list">
 
-    <div class="risk-card severity-high">
-      <div class="risk-header">
-        <div class="risk-title">Identificadores <code>@norma:</code> do YAML não batem com filenames</div>
-        <span class="risk-meta">Pré-requisito S1.1.B · Severidade alta</span>
-      </div>
-      <p class="risk-description">Validação E2E do S1.1.A revelou que IDs do YAML <code>matriz_cst.yaml</code> não casam por igualdade exata com arquivos em <code>docs/legislacao_md/</code> — exemplos: <code>Lei_Kandir_LC87_1996</code> vs <code>LC_87_1996_Kandir.md</code>; <code>Convenio_ICMS_142_2018</code> vs <code>Convenio_ICMS_142_2018_ST.md</code>; <code>Guia_Pratico_EFD_ICMS_IPI_v3</code> vs <code>Guia_EFD_ICMS_IPI_v3.2.1.md</code>. Consequência: toda recomendação sai com <code>bloqueada=True</code> e <code>normas=()</code>. Antes do S1.1.B é preciso alinhar os identificadores ou implementar alias map.</p>
-    </div>
-
     <div class="risk-card">
       <div class="risk-header">
         <div class="risk-title">Decisão sobre escopo de CST de saída pendente</div>
         <span class="risk-meta">D-22 · Severidade média</span>
       </div>
-      <p class="risk-description">Antes do Sprint S1.1.B avançar para CST de saída, é necessário decidir se a categoria C2 (CST ICMS) abrange saída. S1.1.A entregou apenas análise para CST de <strong>entrada</strong> — escopo recomendado pela documentação canônica P1+1. Se a decisão incluir saída, será necessária implementação de <code>classificar_cst_icms_saida()</code> ainda inexistente.</p>
+      <p class="risk-description">Antes do Sprint S1.1.B avançar para CST de saída, é necessário decidir se a categoria C2 (CST ICMS) abrange saída. <strong>Decisão operacional vigente</strong> (REGRA_APURACAO_ICMS_S1_1.md §6, 08/05/2026): S1.1 inicia apenas com CST de <strong>entrada</strong>. Formalmente pendente; CST de saída fica fora enquanto <code>matriz_cst_icms.yaml</code> tiver <code>metadata.status = AGUARDANDO_REVISAO_JURIDICA</code>.</p>
     </div>
 
     <div class="risk-card">
@@ -882,24 +874,24 @@
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">Alinhamento de identificadores <code>@norma:</code> ↔ filenames</div>
-        <div class="milestone-meta">Em planejamento · Pré-requisito do S1.1.B · Alinhar IDs do YAML matriz_cst com arquivos de <code>docs/legislacao_md/</code> ou implementar alias map</div>
+        <div class="milestone-title">Sprint S1.1.B — pipeline <code>c170</code> + audit CST</div>
+        <div class="milestone-meta">14 → 22/05/2026 · Commit 4/N entregue (cruzamento + análise + audit_cst JSONL determinístico) · Falta persistência em disco (Commit 5) + integração final + gate PVA → checkpoint <code>v3.13.0-rc3</code></div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">2</div>
       <div class="milestone-content">
-        <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
-        <div class="milestone-meta">Aguardando · Habilita ou bloqueia <code>classificar_cst_icms_saida()</code> em S1.1.B · Impacta dimensionamento</div>
+        <div class="milestone-title">Revisão jurídica da matriz CST completa</div>
+        <div class="milestone-meta">Aguardando · Pré-requisito para liberar aplicação fora da allowlist mínima · Hoje <code>metadata.status = AGUARDANDO_REVISAO_JURIDICA</code> faz toda recomendação carregar <code>matriz_em_revisao=True</code></div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">3</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.1.B — aplicação experimental M-ICMS</div>
-        <div class="milestone-meta">12 → 22/05/2026 · 4-6 dias úteis · Habilita modo experimental + dupla confirmação (D-21) sobre análise read-only do S1.1.A · Encerra com novo gate PVA → checkpoint <code>v3.13.0-rc3</code></div>
+        <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
+        <div class="milestone-meta">Formalmente pendente · Decisão operacional vigente: S1.1 entra só com CST entrada · Habilita ou bloqueia <code>classificar_cst_icms_saida()</code> em sprint futuro</div>
       </div>
     </div>
 
@@ -952,15 +944,21 @@
   <div class="todo-list">
 
     <div class="todo-item">
-      <div class="todo-id">YAML×MD</div>
-      <div class="todo-text">Alinhar identificadores <code>@norma:</code> em <code>config/matriz_cst.yaml</code> com filenames reais de <code>docs/legislacao_md/</code>, ou implementar alias map deterministico. Pré-requisito do S1.1.B — sem isso, todas as recomendações da matriz CST ficam bloqueadas (<code>bloqueada=True</code>, <code>normas=()</code>).</div>
-      <div class="todo-when">Antes do S1.1.B</div>
+      <div class="todo-id">MATRIZ</div>
+      <div class="todo-text">Revisão jurídica completa da <code>config/matriz_cst_icms.yaml</code>. Hoje <code>metadata.status = AGUARDANDO_REVISAO_JURIDICA</code> → toda recomendação carrega <code>matriz_em_revisao=True</code>. Allowlist mínima (<code>cfop_destinacao.yaml</code>) já aprovada em S1.1.B-pre; matriz CST completa fica fora do escopo experimental até nova aprovação.</div>
+      <div class="todo-when">Pré-merge main</div>
     </div>
 
     <div class="todo-item">
       <div class="todo-id">D-22</div>
-      <div class="todo-text">Decisão pendente: a categoria C2 (CST ICMS) abrange CST de saída? S1.1.A entregou só análise de entrada; se a decisão incluir saída, S1.1.B precisa implementar <code>classificar_cst_icms_saida()</code>.</div>
-      <div class="todo-when">Antes do S1.1.B</div>
+      <div class="todo-text">Decisão formal sobre escopo de CST de saída. Decisão operacional vigente: S1.1 inicia só com CST entrada. Se decisão final incluir saída, sprint posterior precisa implementar <code>classificar_cst_icms_saida()</code>.</div>
+      <div class="todo-when">Aguardando</div>
+    </div>
+
+    <div class="todo-item">
+      <div class="todo-id">YAML×MD</div>
+      <div class="todo-text">Alinhar identificadores <code>@norma:</code> com filenames reais. Resolvido em 11/05/2026 via S1.1.A.1 — criado <code>config/normas_alias.yaml</code> e <code>_resolver_normas</code> consulta o alias map antes do file system. 4 identificadores resolvidos (Lei_Kandir, Convenio_ICMS_142_2018, Guia_Pratico_EFD_ICMS_IPI_v3, LC_123_2006). 220 → 257 testes passando.</div>
+      <div class="todo-when">Concluído</div>
     </div>
 
     <div class="todo-item">
@@ -1171,6 +1169,32 @@
     </details>
 
     <details>
+      <summary>S1.1.B-pre — Allowlist mínima de CFOPs aprovada juridicamente · FECHADO</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (14/05/2026, commit final <code>f4eaf49</code>)</p>
+        <p><strong>Commits principais:</strong> <code>6f3595c</code> (ata jurídica + VALIDACAO_FABIO) · <code>8163b8a</code> (cfop_destinacao.yaml v1.0.0 REVISADA) · <code>70c7c3e</code> (loader + dataclass CfopDestinacao + exception + 21 testes) · <code>2aa4b47</code> (follow-up P2: base_normativa + regex CFOP, +16 testes) · <code>f4eaf49</code> (registro de saída)</p>
+        <p><strong>Entregas:</strong> ~1.500 LOC totais (1.216 config + ~510 código + ~710 testes). Allowlist mínima de CFOPs com aprovação jurídica registrada, loader determinístico com cópia defensiva, validação de metadata.base_normativa e regex de chave CFOP. Suíte ampla: 220 → 257 testes passando.</p>
+        <p><strong>Bandeira de escopo:</strong> aprovação aplica apenas à tabela restrita (<code>cfop_destinacao.yaml</code>). A matriz CST como um todo continua com status <code>AGUARDANDO_REVISAO_JURIDICA</code> — mudanças no YAML aprovado exigem nova revisão registrada.</p>
+        <p><strong>Próximo:</strong> S1.1.B Commit 1 (testes failing) liberado para green light separado.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>S1.1.A.1 — Alinhamento de identificadores normativos · FECHADO</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (11/05/2026, commit final <code>17f0a1f</code>)</p>
+        <p><strong>Commits principais:</strong> <code>f8c5f14</code> (criar <code>config/normas_alias.yaml</code>) · <code>36bd2c3</code> (testes failing) · <code>1f22c3d</code> (loader + integração no <code>_resolver_normas</code>) · <code>17f0a1f</code> (registro de saída)</p>
+        <p><strong>Entregas:</strong> ~470 LOC totais (50 config + 200 código + 220 testes). Alias map determinístico que resolve 4 identificadores legados para os filenames canônicos atuais:</p>
+        <p>· <code>Lei_Kandir_LC87_1996</code> → <code>@norma:LC_87_1996_Kandir</code></p>
+        <p>· <code>Convenio_ICMS_142_2018</code> → <code>@norma:Convenio_ICMS_142_2018_ST</code></p>
+        <p>· <code>Guia_Pratico_EFD_ICMS_IPI_v3</code> → <code>@norma:Guia_EFD_ICMS_IPI_v322</code></p>
+        <p>· <code>LC_123_2006</code> → <code>@norma:LC_123_2006_Simples_Nacional</code></p>
+        <p><strong>O que NÃO mudou:</strong> <code>metadata.status</code> da matriz CST continua <code>AGUARDANDO_REVISAO_JURIDICA</code>; toda recomendação ainda carrega <code>matriz_em_revisao=True</code>; aplicação experimental continua bloqueada até nova aprovação jurídica completa.</p>
+        <p><strong>Pré-requisito do S1.1.B liberado:</strong> alinhamento de identificadores resolvido.</p>
+      </div>
+    </details>
+
+    <details>
       <summary>S1.1.A — Análise CST entrada read-only experimental · FECHADO</summary>
       <div class="details-body">
         <p><strong>Status:</strong> Concluído (08/05/2026, commit final <code>fa1021d</code>)</p>
@@ -1274,27 +1298,28 @@
 // =============================================================
 // DADOS DO TIMELINE — atualizar aqui quando avançar de sprint
 // =============================================================
-// Datas-âncora: hoje 08/05/2026.
+// Datas-âncora: hoje 14/05/2026.
 // Cada sprint na timeline declara span proporcional aos dias úteis estimados (re-estimativa pós-S1.0/S1.0b)
 // e a coluna "dias" exibe data real de fechamento (sprints concluídos) ou janela alvo (sprints futuros).
 const sprints = [
-  { id: 'P0',       nome: 'P0 — Pavimentação',                    status: 'done',     start: 0,  span: 1, dias: '01/05'        },
-  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',              status: 'done',     start: 1,  span: 1, dias: '02/05'        },
-  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',              status: 'done',     start: 2,  span: 1, dias: '04/05'        },
-  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',    status: 'done',     start: 3,  span: 1, dias: '05/05'        },
-  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',  status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
-  { id: 'S1.0+1',   nome: 'S1.0+1 — Cristalização D-31/32/33',    status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
-  { id: 'S1.0b',    nome: 'S1.0b — Propagação estrutural',        status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
-  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS canônica',  status: 'done',     start: 13, span: 1, dias: '08/05 ✓'      },
-  { id: 'S1.1.A',   nome: 'S1.1.A — Análise CST entrada (read-only)', status: 'done', start: 14, span: 2, dias: '08/05 ✓'      },
-  { id: 'YAML×MD',  nome: 'Alinhamento @norma: YAML × filenames', status: 'progress', start: 16, span: 2, dias: '11 → 12/05'   },
-  { id: 'S1.1.B',   nome: 'S1.1.B — Aplicação experimental M-ICMS', status: 'next',   start: 18, span: 5, dias: '12 → 22/05'   },
-  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                  status: 'blocked',  start: 23, span: 8, dias: '25/05 → 08/06' },
-  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                   status: 'blocked',  start: 31, span: 7, dias: '08 → 18/06'   },
-  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',  status: 'planned',  start: 38, span: 2, dias: '~22/06'       },
-  { id: 'S2',       nome: 'S2 — Linguagem natural',               status: 'planned',  start: 40, span: 5, dias: '25/06 → 02/07' },
-  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',     status: 'planned',  start: 45, span: 6, dias: '02 → 10/07'   },
-  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',         status: 'planned',  start: 51, span: 10, dias: '10 → 24/07'  }
+  { id: 'P0',       nome: 'P0 — Pavimentação',                       status: 'done',     start: 0,  span: 1, dias: '01/05'        },
+  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',                 status: 'done',     start: 1,  span: 1, dias: '02/05'        },
+  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',                 status: 'done',     start: 2,  span: 1, dias: '04/05'        },
+  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',       status: 'done',     start: 3,  span: 1, dias: '05/05'        },
+  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',     status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
+  { id: 'S1.0+1',   nome: 'S1.0+1 — Cristalização D-31/32/33',       status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
+  { id: 'S1.0b',    nome: 'S1.0b — Propagação estrutural',           status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
+  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS canônica',     status: 'done',     start: 13, span: 1, dias: '08/05 ✓'      },
+  { id: 'S1.1.A',   nome: 'S1.1.A — Análise CST entrada (read-only)',status: 'done',     start: 14, span: 2, dias: '08/05 ✓'      },
+  { id: 'S1.1.A.1', nome: 'S1.1.A.1 — Alias map @norma:',            status: 'done',     start: 16, span: 2, dias: '11/05 ✓'      },
+  { id: 'S1.1.Bpre',nome: 'S1.1.B-pre — Allowlist CFOPs aprovada',   status: 'done',     start: 18, span: 2, dias: '14/05 ✓'      },
+  { id: 'S1.1.B',   nome: 'S1.1.B — Pipeline c170 + audit CST',      status: 'progress', start: 20, span: 5, dias: '14 → 22/05'   },
+  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                     status: 'blocked',  start: 25, span: 8, dias: '25/05 → 08/06' },
+  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                      status: 'blocked',  start: 33, span: 7, dias: '08 → 18/06'   },
+  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',     status: 'planned',  start: 40, span: 2, dias: '~22/06'       },
+  { id: 'S2',       nome: 'S2 — Linguagem natural',                  status: 'planned',  start: 42, span: 5, dias: '25/06 → 02/07' },
+  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',        status: 'planned',  start: 47, span: 6, dias: '02 → 10/07'   },
+  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',            status: 'planned',  start: 53, span: 10, dias: '13 → 24/07'  }
 ];
 
 const colorMap = {
@@ -1305,7 +1330,7 @@ const colorMap = {
   planned:  'var(--status-planned)'
 };
 
-const TOTAL_UNITS = 61;
+const TOTAL_UNITS = 63;
 
 function renderTimeline() {
   const container = document.getElementById('timeline');
