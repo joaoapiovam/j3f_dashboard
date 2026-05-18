@@ -732,7 +732,7 @@
     <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
     <div class="header-meta">
       <span>Atualizado: <strong id="last-update">18/05/2026</strong></span>
-      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.C eixo A — PVA tentativa 3 (aguardando)</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">Anonimizador v3 ✓ · smoke real operator-side</strong></span>
       <span>Checkpoint atual: <strong>v3.13.1-rc1</strong></span>
       <span>Branch: <strong>codex/s1-0b-propagacao-estrutural</strong></span>
     </div>
@@ -747,10 +747,10 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">75%</div>
-      <div class="kpi-context">Família E ✓ + P1+1 ✓ + S1.1.A/A.1/B-pre/B ✓ · S1.1.C eixo A em PVA</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 75%;"></div>
+      <div class="kpi-value">78%</div>
+      <div class="kpi-context">Família E ✓ + P1+1 ✓ + S1.1.A→B ✓ · S1.1.C eixo A pronto · Anonimizador v3 ✓</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 78%;"></div>
       </div>
     </div>
     <div class="kpi-card">
@@ -766,7 +766,7 @@
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
       <div class="kpi-value">3</div>
-      <div class="kpi-context">PVA tentativa 3 eixo A, D-22 CST saída, D-17 schemas CIAP</div>
+      <div class="kpi-context">Smoke real Akki + 3 PVAs CST (operator-side), D-22 CST saída, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -808,9 +808,9 @@
         <div class="family-name">Família M-ICMS</div>
         <span class="badge badge-progress">Em curso</span>
       </div>
-      <p class="family-description">S1.1.A/A.1/B-pre ✓ análises read-only + alias map + allowlist CFOP. <strong>S1.1.B ✓ aplicação experimental CST entrada</strong> (10 camadas técnicas, 261 testes, gate PVA aceito em 1ª tentativa em fixture sintética retificada, tag <code>v3.13.1-rc1</code>). <strong>S1.1.C eixo A</strong> (split/merge C190) implementado + hardenizado + ata jurídica aprovada — aguarda PVA tentativa 3 com saldos E110 e E116 recalculados.</p>
+      <p class="family-description">S1.1.A/A.1/B-pre ✓; <strong>S1.1.B ✓</strong> aplicação CST entrada (PVA 1ª tentativa, tag <code>v3.13.1-rc1</code>); <strong>S1.1.C eixo A</strong> (split/merge C190) implementado + hardenizado + ata jurídica + <strong>Anonimizador EFD v3</strong> ✓ (corrige bug crítico de índices em 0300 e H010). Pronto para smoke real Akki + trilha CST nos 3 cenários → tag definitiva <code>v3.13.2</code>.</p>
       <div class="family-footer">
-        <span>S1.1.A→B ✓ · eixo A em PVA</span>
+        <span>S1.1.A→B ✓ · eixo A pronto p/ PVA real</span>
         <span>5 eixos B-F a planejar</span>
       </div>
     </div>
@@ -874,8 +874,8 @@
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">PVA tentativa 3 — S1.1.C eixo A (split/merge C190)</div>
-        <div class="milestone-meta">Aguardando submissão · Artefatos prontos com E110 e E116 recalculados · Aceite libera checkpoint <code>v3.13.2-rc1</code></div>
+        <div class="milestone-title">Smoke real Akki Filial 302 → trilha CST nos 3 cenários</div>
+        <div class="milestone-meta">Operator-side · <code>anonimizar-efd</code> no <code>03_Akki_Filial302_Dez2025.txt</code> → corte trailer PKCS#7 → PVA do anon_v3 (esperado 0 erros estruturais) → CLI <code>aplicar-cst-icms</code> nas linhas 11936/62703/47769 → PVA dos 3 <code>_v2_retificado.txt</code>. <strong>Esperado 3/3 aceitos → tag definitiva v3.13.2</strong></div>
       </div>
     </div>
 
@@ -1201,6 +1201,21 @@
     </details>
 
     <details>
+      <summary>Sub-sprint Anonimizador EFD v3 · FECHADO (18/05/2026)</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (commit <code>7bbc04d</code>) · HEAD da branch · push range <code>b033426..7bbc04d</code></p>
+        <p><strong>Causa raiz da v3:</strong> bissecção pós-PVA real do Akki Filial 302 revelou que o anonimizador v2 escrevia em <strong>índices errados</strong>: <code>_IDX_0300_DESCR=3</code> caía no campo <code>IDENT_MERC</code> (categórico) em vez do <code>DESCR</code>; <code>_IDX_H010_DESCR=5</code> caía no <code>VL_UNIT</code> (Decimal) em vez do <code>DESCR</code>. PVA "Somente Visualização" aceitou v1/v2 silenciosamente porque não exercita o caminho de modificação — só smoke real com o motor S1.1.C alterando campos revelaria o problema.</p>
+        <p><strong>Fix (2 linhas):</strong> <code>_IDX_0300_DESCR = 4</code> · <code>_IDX_H010_DESCR = 9</code>. Comentários <code>@norma:Guia_EFD_ICMS_IPI_v322 §&lt;REG&gt;</code> adicionados em cada constante <code>_IDX_*_DESCR</code> (0200, 0300, H010) com layout em pseudo-código + ementa do campo + nota do bug em v3.</p>
+        <p><strong>4 fases TDD:</strong></p>
+        <p>· <strong>Phase 1 RED</strong> — 6 testes regression em <code>tests/test_anonimizador_efd.py</code> (idx 4 não idx 3 para 0300; idx 9 não idx 5 para H010; preservação IDENT_MERC parametrizada {1,2,3,4}; preservação VL_UNIT Decimal pt-BR em 4 formatações; TXT_COMPL vazio no-op; lint estrutural via grep para <code>@norma</code> na docstring). Helpers <code>_make_0300_partes</code> e <code>_make_h010_partes</code> forçam valores DISTINTOS nos campos vizinhos.</p>
+        <p>· <strong>Phase 2 GREEN</strong> — 2 linhas + comentários canônicos.</p>
+        <p>· <strong>Phase 3 smoke</strong> — operator-side (fora do escopo do agente).</p>
+        <p>· <strong>Phase 4 docs</strong> — L-37 em <code>tasks/lessons.md</code> com 4 regras preventivas.</p>
+        <p><strong>Gates verdes:</strong> <code>pytest tests/test_anonimizador_efd.py</code> → <strong>75 passed</strong> (69 v2 + 6 v3 regression) · <code>pytest tests/test_materializador_sped.py</code> → <strong>50 passed + 1 skipped</strong> (DIFAL W1-A) · ruff CLEAN · mypy <code>--strict --follow-imports=silent</code> CLEAN.</p>
+      </div>
+    </details>
+
+    <details>
       <summary>S1.1.C eixo A — Split/merge C190 generalizado · PVA tentativa 3 aguardando</summary>
       <div class="details-body">
         <p><strong>Status:</strong> Implementação ✓ · hardening pré-PVA ✓ · ata jurídica ✓ · <strong>PVA tentativa 3 aguardando</strong> (15-18/05/2026)</p>
@@ -1290,6 +1305,20 @@
   <h2 id="lessons-title" class="section-title">Lições recentes capturadas</h2>
   <p class="section-subtitle">Aprendizados convertidos em regra preventiva nas últimas duas semanas</p>
   <div class="details-section">
+
+    <details>
+      <summary>L-37 — Índices de layout SPED sem <code>@norma:</code> + layout viram bug silencioso em modificação</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> qualidade · parsing SPED · anonimização · LGPD · TDD-discipline · <strong>Data:</strong> 18/05/2026 · <strong>Origem:</strong> bissecção Anonimizador v2 → v3</p>
+        <p><strong>Erro:</strong> Anonimizador v2 escrevia em índices errados: <code>_IDX_0300_DESCR=3</code> caía no campo categórico <code>IDENT_MERC</code> em vez do <code>DESCR</code> (correto: 4); <code>_IDX_H010_DESCR=5</code> caía no campo Decimal <code>VL_UNIT</code> em vez do <code>DESCR</code> (correto: 9). PVA aceitou v1/v2 em modo "Somente Visualização" mas geraria 1000 erros estruturais assim que o motor S1.1.C alterasse qualquer campo da fixture anonimizada.</p>
+        <p><strong>Causa raiz:</strong> índices foram inferidos por similaridade visual entre registros (0200=3 ≠ 0300=4 ≠ H010=9) e nenhum comentário <code>@norma</code> com layout exato existia para forçar revisão. Fixtures de teste usavam valores parecidos nos campos vizinhos, mascarando a confusão.</p>
+        <p><strong>4 regras preventivas:</strong></p>
+        <p>1. Toda constante <code>_IDX_&lt;REG&gt;_&lt;CAMPO&gt;</code> tem <code>@norma:</code> com layout exato em pseudo-código + ementa do campo. Validar via lint estrutural pytest (grep na docstring).</p>
+        <p>2. Fixtures regression usam valores <strong>DISTINTOS</strong> nos campos vizinhos do alvo — nunca apenas o alvo testado.</p>
+        <p>3. PVA "Somente Visualização" <strong>não é validação</strong>. Para gate D-20-like, forçar o caminho de "modificação" (motor altera campo, materializa, regrava, submete).</p>
+        <p>4. <strong>Não auditar índices por similaridade visual a outros registros.</strong> Cada layout do Guia EFD é específico — comprovar contra Guia v3.2.1 §&lt;REG&gt; antes de codar.</p>
+      </div>
+    </details>
 
     <details>
       <summary>L-36 — TDD restrito a um bloco SPED esconde invariantes cross-bloco do PVA</summary>
