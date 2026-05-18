@@ -731,9 +731,9 @@
     <h1>Retificação EFD ICMS/IPI</h1>
     <div class="header-subtitle">Motor de retificação automatizada para auditoria fiscal de obrigações acessórias</div>
     <div class="header-meta">
-      <span>Atualizado: <strong id="last-update">14/05/2026</strong></span>
-      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.B em curso (pipeline_c170, Commit 4/N)</strong></span>
-      <span>Checkpoint atual: <strong>v3.13.0-rc2</strong></span>
+      <span>Atualizado: <strong id="last-update">18/05/2026</strong></span>
+      <span><span class="pulse-dot" aria-hidden="true"></span>Sprint atual: <strong id="current-sprint">S1.1.C eixo A — PVA tentativa 3 (aguardando)</strong></span>
+      <span>Checkpoint atual: <strong>v3.13.1-rc1</strong></span>
       <span>Branch: <strong>codex/s1-0b-propagacao-estrutural</strong></span>
     </div>
   </div>
@@ -747,10 +747,10 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Progresso geral</div>
-      <div class="kpi-value">65%</div>
-      <div class="kpi-context">Família E ✓ + P1+1 ✓ + S1.1.A ✓ + S1.1.A.1 ✓ + S1.1.B-pre ✓ · S1.1.B em curso</div>
-      <div class="kpi-progress-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
-        <div class="kpi-progress-fill" style="width: 65%;"></div>
+      <div class="kpi-value">75%</div>
+      <div class="kpi-context">Família E ✓ + P1+1 ✓ + S1.1.A/A.1/B-pre/B ✓ · S1.1.C eixo A em PVA</div>
+      <div class="kpi-progress-track" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso geral do projeto">
+        <div class="kpi-progress-fill" style="width: 75%;"></div>
       </div>
     </div>
     <div class="kpi-card">
@@ -760,13 +760,13 @@
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gates PVA aprovados</div>
-      <div class="kpi-value">2/2</div>
-      <div class="kpi-context">D-20 (S1.0 — Tentativa 6) + D-20b (S1.0b — Tentativa 3)</div>
+      <div class="kpi-value">3/3</div>
+      <div class="kpi-context">S1.0 (Tent.6) + S1.0b (Tent.3) + S1.1.B (1ª tentativa)</div>
     </div>
     <div class="kpi-card kpi-warning">
       <div class="kpi-label">Riscos ativos</div>
-      <div class="kpi-value">2</div>
-      <div class="kpi-context">D-22 CST saída, D-17 schemas CIAP</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-context">PVA tentativa 3 eixo A, D-22 CST saída, D-17 schemas CIAP</div>
     </div>
   </div>
 </section>
@@ -808,10 +808,10 @@
         <div class="family-name">Família M-ICMS</div>
         <span class="badge badge-progress">Em curso</span>
       </div>
-      <p class="family-description">S1.1.A ✓ análise CST entrada read-only (66 testes); S1.1.A.1 ✓ alias map de normas (4 identificadores resolvidos); S1.1.B-pre ✓ <code>cfop_destinacao.yaml</code> aprovado juridicamente (37 testes). S1.1.B em curso — pipeline <code>c170</code> com cruzamento + análise CST + audit JSONL (Commit 4/N entregue).</p>
+      <p class="family-description">S1.1.A/A.1/B-pre ✓ análises read-only + alias map + allowlist CFOP. <strong>S1.1.B ✓ aplicação experimental CST entrada</strong> (10 camadas técnicas, 261 testes, gate PVA aceito em 1ª tentativa em fixture sintética retificada, tag <code>v3.13.1-rc1</code>). <strong>S1.1.C eixo A</strong> (split/merge C190) implementado + hardenizado + ata jurídica aprovada — aguarda PVA tentativa 3 com saldos E110 e E116 recalculados.</p>
       <div class="family-footer">
-        <span>S1.1.A/A.1/B-pre ✓ · S1.1.B em curso</span>
-        <span>~6 dias úteis restantes</span>
+        <span>S1.1.A→B ✓ · eixo A em PVA</span>
+        <span>5 eixos B-F a planejar</span>
       </div>
     </div>
 
@@ -874,24 +874,56 @@
     <div class="milestone-item">
       <div class="milestone-marker active">1</div>
       <div class="milestone-content">
-        <div class="milestone-title">Sprint S1.1.B — pipeline <code>c170</code> + audit CST</div>
-        <div class="milestone-meta">14 → 22/05/2026 · Commit 4/N entregue (cruzamento + análise + audit_cst JSONL determinístico) · Falta persistência em disco (Commit 5) + integração final + gate PVA → checkpoint <code>v3.13.0-rc3</code></div>
+        <div class="milestone-title">PVA tentativa 3 — S1.1.C eixo A (split/merge C190)</div>
+        <div class="milestone-meta">Aguardando submissão · Artefatos prontos com E110 e E116 recalculados · Aceite libera checkpoint <code>v3.13.2-rc1</code></div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">2</div>
       <div class="milestone-content">
-        <div class="milestone-title">Revisão jurídica da matriz CST completa</div>
-        <div class="milestone-meta">Aguardando · Pré-requisito para liberar aplicação fora da allowlist mínima · Hoje <code>metadata.status = AGUARDANDO_REVISAO_JURIDICA</code> faz toda recomendação carregar <code>matriz_em_revisao=True</code></div>
+        <div class="milestone-title">Decisão de escopo S1.1.C eixos B-F</div>
+        <div class="milestone-meta">Plano com 6 eixos candidatos (PLANO_S1_1_C.md) · Eixo A entregue · Decidir prioridade dos restantes: <strong>B</strong> CST saída · <strong>C</strong> C3 CFOP entrada/saída · <strong>D</strong> C9 ICMS-ST · <strong>E</strong> C18 DIFAL/E111 · <strong>F</strong> DEB_ESP &gt; 0</div>
       </div>
     </div>
 
     <div class="milestone-item">
       <div class="milestone-marker">3</div>
       <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.2 — Família CIAP</div>
+        <div class="milestone-meta">25/05 → 08/06/2026 · Pré-requisito P0+1 (schemas G110/G125) no início · Encerra com gate PVA real</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">4</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Sprint S1.3 — Família IPI</div>
+        <div class="milestone-meta">08 → 18/06/2026 · Pré-requisitos P0+2 (schemas C170 com IPI) e P0+3 (E520)</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">5</div>
+      <div class="milestone-content">
+        <div class="milestone-title">🏷️ Tag v3.13.0 oficial → merge main</div>
+        <div class="milestone-meta">~18 → 22/06/2026 · Após S1.0/S1.0b/S1.1/S1.2/S1.3 validados em PVA real · Sai da branch para o tronco principal</div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">6</div>
+      <div class="milestone-content">
+        <div class="milestone-title">Revisão jurídica da matriz CST completa</div>
+        <div class="milestone-meta">Pré-requisito para aplicação fora da allowlist mínima · Hoje <code>metadata.status = AGUARDANDO_REVISAO_JURIDICA</code> faz toda recomendação carregar <code>matriz_em_revisao=True</code></div>
+      </div>
+    </div>
+
+    <div class="milestone-item">
+      <div class="milestone-marker">7</div>
+      <div class="milestone-content">
         <div class="milestone-title">Decisão D-22 — escopo do CST de saída</div>
-        <div class="milestone-meta">Formalmente pendente · Decisão operacional vigente: S1.1 entra só com CST entrada · Habilita ou bloqueia <code>classificar_cst_icms_saida()</code> em sprint futuro</div>
+        <div class="milestone-meta">Formalmente pendente · Decisão operacional vigente: S1.1 entra só com CST entrada · Provável endereçamento no S1.1.C eixo B</div>
       </div>
     </div>
 
@@ -1169,6 +1201,38 @@
     </details>
 
     <details>
+      <summary>S1.1.C eixo A — Split/merge C190 generalizado · PVA tentativa 3 aguardando</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Implementação ✓ · hardening pré-PVA ✓ · ata jurídica ✓ · <strong>PVA tentativa 3 aguardando</strong> (15-18/05/2026)</p>
+        <p><strong>Commits principais:</strong> <code>f3f2b24</code> (plano docs-only 6 eixos) · <code>4e54dc7</code> (split/merge C190 generalizado + helper <code>c190_recalculo.py</code>) · <code>e460cc2</code> (16 testes E2E com conservação parametrizada) · <code>6a9eab7</code> (hardening: VL_RED_BC=0 + COD_OBS vazio + split-zera) · <code>f629fce</code> (ata jurídica Fábio 18/05) · <code>2e68699</code> (recalcula totalizers X990) · <code>296efba</code> (recalcula saldos E110) · <code>ed735f8</code> (propaga delta E110 → E116.VL_OR)</p>
+        <p><strong>Hardening review (senior) em 18/05:</strong> W1 invariante cross-bloco C190↔E110 · W1-A gap DIFAL/EC 87/2015 documentado · W1-B CFOP não-classificável → ValueError · W1-ext multi-bloco analítico · W2 <code>_decimal_sped.py</code> (DRY) · W3 LGPD remove DEB_ESP de mensagem · W4 audit JSONL cross-bloco · W5 endurece guard DEB_ESP · W6 LGPD remove delta_e116 · W7 guard E116.VL_OR negativo · W8 refactor <code>_recalcular_vl_or_e116</code> · C1 LGPD CRITICAL remove <code>delta_obrigacao_hash</code> do audit</p>
+        <p><strong>3 tentativas PVA:</strong> Tentativa 1 RECUSADA (E110 stale após split/merge) → fix recalcular saldos. Tentativa 2 RECUSADA (E116 stale, invariante cross-bloco Σ E116.VL_OR = E110.VL_ICMS_RECOLHER + DEB_ESP) → fix propagação. Tentativa 3 (artefatos prontos com hashes <code>b3dec160…</code>, <code>06535566…</code>, <code>49d3d801…</code>) aguardando submissão.</p>
+        <p><strong>Anonimizador EFD v2</strong> (<code>b033426</code>): refundação pós-PVA real Akki Filial 302 que revelou 1000 erros estruturais no v1. Tabela <code>_IE_REGRA_POR_UF</code> com 14 UFs + algoritmos DV canônicos (SINIEF Anexo IV + ATO COTEPE 44/2018). CHV_NFE preserva CNPJ_emit real para NF-e de entrada.</p>
+        <p><strong>348 testes passando</strong> no pacote focado (vs 322 anterior). Ata jurídica <code>tasks/VALIDACAO_FABIO_S1_1_C_SPLIT_MERGE.md</code> autoriza cenário limpo como recomposição técnica.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>S1.1.B — Aplicação experimental CST entrada · gate PVA APROVADO · v3.13.1-rc1</summary>
+      <div class="details-body">
+        <p><strong>Status:</strong> Concluído (15/05/2026) · PVA real aceitou em <strong>1ª tentativa</strong> em fixture sintética retificada</p>
+        <p><strong>SHA-256 do arquivo aceito:</strong> <code>693c9190879c15609e4adefee0fe5f5144f91f58d53931e701de37d0604cf5fd</code> · <strong>PVA:</strong> Sped Fiscal EFD ICMS/IPI v6.0.3 · <strong>Resultado:</strong> "Arquivo validado com sucesso" · <strong>Tag:</strong> <code>v3.13.1-rc1</code></p>
+        <p><strong>10 camadas técnicas entregues</strong> (Opção A — sem motor geral / Bloco 9 legado / PVA programático):</p>
+        <p>1. <code>audit_cst.py</code> — 7 event_types (2 read-only + 5 aplicação), leak detection LGPD</p>
+        <p>2. <code>confirmacao_local.py</code> — <code>DeclaracaoConfirmacaoLocal</code> + <code>confirmar_recomendacao_local</code></p>
+        <p>3. <code>motor_cst_icms_c170.py</code> — patcher byte-a-byte caso simples</p>
+        <p>4. <code>materializador_sped.py</code> — <code>COD_FIN=1</code> + Bloco 9 D-26</p>
+        <p>5. <code>gravador_sped.py</code> — par v1/v2 com idempotência por hash</p>
+        <p>6. <code>cli_aplicar_cst.py</code> — comando standalone <code>aplicar-cst-icms</code></p>
+        <p>7. <code>test_e2e_aplicacao_cst.py</code> — integração end-to-end</p>
+        <p>8. <code>reversor_cst_icms.py</code> — I/O puro: cópia v1 → v2 + hashes</p>
+        <p>9. <code>cli_reverter_cst.py</code> — comando <code>reverter-cst-icms</code> com <code>--confirmo-nao-transmitido-rfb</code></p>
+        <p>10. <code>app/cli.py</code> — registro global dos dois comandos via <code>main.add_command(...)</code></p>
+        <p><strong>Métricas:</strong> 261 testes do pacote focado PASSED · ruff + mypy --strict CLEAN</p>
+      </div>
+    </details>
+
+    <details>
       <summary>S1.1.B-pre — Allowlist mínima de CFOPs aprovada juridicamente · FECHADO</summary>
       <div class="details-body">
         <p><strong>Status:</strong> Concluído (14/05/2026, commit final <code>f4eaf49</code>)</p>
@@ -1226,6 +1290,17 @@
   <h2 id="lessons-title" class="section-title">Lições recentes capturadas</h2>
   <p class="section-subtitle">Aprendizados convertidos em regra preventiva nas últimas duas semanas</p>
   <div class="details-section">
+
+    <details>
+      <summary>L-36 — TDD restrito a um bloco SPED esconde invariantes cross-bloco do PVA</summary>
+      <div class="details-body">
+        <p><strong>Domínio:</strong> qualidade · SPED · apuração ICMS · retificação · TDD-discipline · <strong>Data:</strong> 18/05/2026 · <strong>Commit:</strong> <code>51bf697</code></p>
+        <p><strong>Erro:</strong> Sub-sprint do S1.1.C eixo A corrigiu E110 conforme fórmula §2 da REGRA_APURACAO_ICMS_S1_1.md, mas PVA tentativa 2 recusou os 3 artefatos sintéticos com <code>Σ E116.VL_OR ≠ E110.VL_ICMS_RECOLHER + DEB_ESP</code>. Foi necessária uma segunda sub-sprint (propagação E116) e 3 tentativas no PVA até aceitar 3/3. O TDD inicial mirou em "campo X do bloco Y" sem mapear invariantes cross-bloco que o PVA verifica.</p>
+        <p><strong>Causa raiz:</strong> Invariante E110↔E116 mencionado no último parágrafo da REGRA, só internalizado depois do PVA recusar — não preventivamente. Dev seguiu <em>TDD-driven-by-PVA-error</em> em vez de <em>TDD-driven-by-invariant-map</em>. Custou 2 sub-sprints + 3 ciclos PVA onde 1 + 1 seria suficiente.</p>
+        <p><strong>Regra:</strong> Quando uma sub-sprint altera campo monetário em qualquer bloco do SPED, mapear ANTES da RED <strong>todas</strong> as invariantes cross-bloco que o PVA verifica. Fontes obrigatórias: Guia EFD ICMS/IPI v3.2.1 + REGRA_APURACAO_ICMS_S1_1.md + invariante <code>Σ C190.VL_ICMS ≈ E110.VL_TOT_DEB/CRED</code> já implementado em <code>_validar_invariante_c190_e110</code>. Tratar cada invariante como teste failing obrigatório no RED.</p>
+        <p><strong>Mapa de cross-blocos a expandir a cada eixo:</strong> E110.VL_TOT_DEBITOS ↔ Σ C190.VL_ICMS (CFOPs saída); E110.VL_TOT_CREDITOS ↔ Σ C190.VL_ICMS (CFOPs entrada); E110.VL_ICMS_RECOLHER + DEB_ESP ↔ Σ E116.VL_OR; E110.DEB_ESP ↔ E111 ajustes (Eixo F pendente); E110.VL_ICMS_RECOLHER ↔ E115 informativos (pendente); C190.VL_ICMS ↔ C170.VL_ICMS; Partilha DIFAL (EC 87/2015 + LC 190/2022 + Conv. 236/2021) → Eixo E pendente, hoje marcado <code>@pytest.mark.skip</code>.</p>
+      </div>
+    </details>
 
     <details>
       <summary>L-35 — Validação PVA com fixture de campo zerado mascara divergência da fórmula canônica</summary>
@@ -1298,28 +1373,30 @@
 // =============================================================
 // DADOS DO TIMELINE — atualizar aqui quando avançar de sprint
 // =============================================================
-// Datas-âncora: hoje 14/05/2026.
+// Datas-âncora: hoje 18/05/2026.
 // Cada sprint na timeline declara span proporcional aos dias úteis estimados (re-estimativa pós-S1.0/S1.0b)
 // e a coluna "dias" exibe data real de fechamento (sprints concluídos) ou janela alvo (sprints futuros).
 const sprints = [
-  { id: 'P0',       nome: 'P0 — Pavimentação',                       status: 'done',     start: 0,  span: 1, dias: '01/05'        },
-  { id: 'Pcanon',   nome: 'Pcanon — Plano canônico',                 status: 'done',     start: 1,  span: 1, dias: '02/05'        },
-  { id: 'P1+0',     nome: 'P1+0 — Detector de tipo',                 status: 'done',     start: 2,  span: 1, dias: '04/05'        },
-  { id: 'P1+0.1',   nome: 'P1+0.1 — Fix consenso multi-sinal',       status: 'done',     start: 3,  span: 1, dias: '05/05'        },
-  { id: 'S1.0',     nome: 'S1.0 — Motor estrutural (família E)',     status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
-  { id: 'S1.0+1',   nome: 'S1.0+1 — Cristalização D-31/32/33',       status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
-  { id: 'S1.0b',    nome: 'S1.0b — Propagação estrutural',           status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
-  { id: 'P1+1',     nome: 'P1+1 — Regra apuração ICMS canônica',     status: 'done',     start: 13, span: 1, dias: '08/05 ✓'      },
-  { id: 'S1.1.A',   nome: 'S1.1.A — Análise CST entrada (read-only)',status: 'done',     start: 14, span: 2, dias: '08/05 ✓'      },
-  { id: 'S1.1.A.1', nome: 'S1.1.A.1 — Alias map @norma:',            status: 'done',     start: 16, span: 2, dias: '11/05 ✓'      },
-  { id: 'S1.1.Bpre',nome: 'S1.1.B-pre — Allowlist CFOPs aprovada',   status: 'done',     start: 18, span: 2, dias: '14/05 ✓'      },
-  { id: 'S1.1.B',   nome: 'S1.1.B — Pipeline c170 + audit CST',      status: 'progress', start: 20, span: 5, dias: '14 → 22/05'   },
-  { id: 'S1.2',     nome: 'S1.2 — Família CIAP',                     status: 'blocked',  start: 25, span: 8, dias: '25/05 → 08/06' },
-  { id: 'S1.3',     nome: 'S1.3 — Família IPI',                      status: 'blocked',  start: 33, span: 7, dias: '08 → 18/06'   },
-  { id: 'v3.13.0',  nome: '🏷️ Tag v3.13.0 oficial → merge main',     status: 'planned',  start: 40, span: 2, dias: '~22/06'       },
-  { id: 'S2',       nome: 'S2 — Linguagem natural',                  status: 'planned',  start: 42, span: 5, dias: '25/06 → 02/07' },
-  { id: 'S3-S4',    nome: 'S3-S4 — Aprovação + Pipeline PVA',        status: 'planned',  start: 47, span: 6, dias: '02 → 10/07'   },
-  { id: 'S5-S7',    nome: 'S5-S7 — Batch, audit, wizard',            status: 'planned',  start: 53, span: 10, dias: '13 → 24/07'  }
+  { id: 'P0',         nome: 'P0 — Pavimentação',                       status: 'done',     start: 0,  span: 1, dias: '01/05'        },
+  { id: 'Pcanon',     nome: 'Pcanon — Plano canônico',                 status: 'done',     start: 1,  span: 1, dias: '02/05'        },
+  { id: 'P1+0',       nome: 'P1+0 — Detector de tipo',                 status: 'done',     start: 2,  span: 1, dias: '04/05'        },
+  { id: 'P1+0.1',     nome: 'P1+0.1 — Fix consenso multi-sinal',       status: 'done',     start: 3,  span: 1, dias: '05/05'        },
+  { id: 'S1.0',       nome: 'S1.0 — Motor estrutural (família E)',     status: 'done',     start: 4,  span: 5, dias: '07/05 ✓'      },
+  { id: 'S1.0+1',     nome: 'S1.0+1 — Cristalização D-31/32/33',       status: 'done',     start: 9,  span: 1, dias: '07/05 ✓'      },
+  { id: 'S1.0b',      nome: 'S1.0b — Propagação estrutural',           status: 'done',     start: 10, span: 3, dias: '08/05 ✓'      },
+  { id: 'P1+1',       nome: 'P1+1 — Regra apuração ICMS canônica',     status: 'done',     start: 13, span: 1, dias: '08/05 ✓'      },
+  { id: 'S1.1.A',     nome: 'S1.1.A — Análise CST entrada (read-only)',status: 'done',     start: 14, span: 2, dias: '08/05 ✓'      },
+  { id: 'S1.1.A.1',   nome: 'S1.1.A.1 — Alias map @norma:',            status: 'done',     start: 16, span: 2, dias: '11/05 ✓'      },
+  { id: 'S1.1.Bpre',  nome: 'S1.1.B-pre — Allowlist CFOPs aprovada',   status: 'done',     start: 18, span: 2, dias: '14/05 ✓'      },
+  { id: 'S1.1.B',     nome: 'S1.1.B — Aplicação experimental CST',     status: 'done',     start: 20, span: 4, dias: '15/05 ✓'      },
+  { id: 'S1.1.C-A',   nome: 'S1.1.C eixo A — Split/merge C190 (PVA t.3)', status: 'progress', start: 24, span: 4, dias: '15 → 18/05'  },
+  { id: 'S1.1.C-BF',  nome: 'S1.1.C eixos B-F — Pendentes de escopo',  status: 'next',     start: 28, span: 6, dias: '19 → 29/05'   },
+  { id: 'S1.2',       nome: 'S1.2 — Família CIAP',                     status: 'blocked',  start: 34, span: 8, dias: '01/06 → 12/06' },
+  { id: 'S1.3',       nome: 'S1.3 — Família IPI',                      status: 'blocked',  start: 42, span: 7, dias: '15 → 25/06'   },
+  { id: 'v3.13.0',    nome: '🏷️ Tag v3.13.0 oficial → merge main',     status: 'planned',  start: 49, span: 2, dias: '~26 → 30/06'  },
+  { id: 'S2',         nome: 'S2 — Linguagem natural',                  status: 'planned',  start: 51, span: 5, dias: '01 → 08/07'   },
+  { id: 'S3-S4',      nome: 'S3-S4 — Aprovação + Pipeline PVA',        status: 'planned',  start: 56, span: 6, dias: '09 → 17/07'   },
+  { id: 'S5-S7',      nome: 'S5-S7 — Batch, audit, wizard',            status: 'planned',  start: 62, span: 10, dias: '20 → 31/07'  }
 ];
 
 const colorMap = {
@@ -1330,7 +1407,7 @@ const colorMap = {
   planned:  'var(--status-planned)'
 };
 
-const TOTAL_UNITS = 63;
+const TOTAL_UNITS = 72;
 
 function renderTimeline() {
   const container = document.getElementById('timeline');
